@@ -42,7 +42,10 @@ router.get("/:id/edit",
     wrapAsync(listingController.renderEditForm));
 
 
-    router.delete("/:id", isLoggedIn, isAdmin, listingController.deleteListing);
+router.delete("/:id", 
+    isLoggedIn, 
+    isAdmin, 
+    listingController.deleteListing);
 
 
 module.exports = router;

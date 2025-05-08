@@ -47,7 +47,8 @@
         width: 100%;
         margin-top: 1rem;
     }
-    .badge-success { background-color: #28a745; }
+    .bg-success { padding: 8px; font-size: 15px;}
+    .badge-success { background-color: #28a745;}
     .badge-warning { background-color: #ffc107; color: #212529; }
     .badge-danger { background-color: #dc3545; }
     .bg-info.card-header { background-color: #212529 !important; }
@@ -114,7 +115,7 @@
                                                 <td><%= reservation.guests %></td>
                                                 <td>₹<%= reservation.totalPrice.toLocaleString("en-IN") %></td>
                                                 <td>
-                                                    <span class="badge bg-<%= 
+                                                    <span class="badge  bg-<%= 
                                                         reservation.status === 'confirmed' ? 'success' : 
                                                         reservation.status === 'cancelled' ? 'danger' : 
                                                         'warning' %>">
@@ -195,6 +196,7 @@
         </div>
 
         <div class="reservation-card">
+            <div class=" mt-5">
             <div class="price">₹<%= listing.price.toLocaleString("en-IN") %> <span>/ night</span></div>
             <form action="/listings/<%= listing._id %>/reservations" method="POST">
                 <div class="mb-3">
@@ -216,6 +218,7 @@
                 <button type="submit" class="btn btn-dark w-100">Reserve Now</button>
                 <p class="mt-2"><i class="fas fa-shield-alt"></i> Free cancellation for 48 hours</p>
             </form>
+        </div>
         </div>
     </div>
 </div>
