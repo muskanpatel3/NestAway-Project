@@ -1,0 +1,127 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container my-5">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h3 class="text-center">Booking Invoice</h3>
+        </div>
+        <div class="card-body">
+            <!-- Invoice Header -->
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <h4>Havenly Stays</h4>
+                    <p>123 Resort Lane<br>Goa, India 403512</p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <h4>Invoice #<%= reservation._id.toString().slice(-6).toUpperCase() %></h4>
+                    <p>Date: <%= currentDate %></p>
+                </div>
+            </div>
+
+            <!-- Booking Details -->
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <h5>Guest Details</h5>
+                    <p>
+                        <strong><%= reservation.userName %></strong><br>
+                        <%= reservation.userEmail %><br>
+                        Booking ID: <%= reservation._id %>
+                    </p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <h5>Property Details</h5>
+                    <p>
+                        <strong><%= reservation.listingTitle %></strong><br>
+                        <%= reservation.listing.location %><br>
+                        Host: <%= reservation.listing.owner.username %>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Dates and Pricing -->
+            <table class="table table-bordered">
+                <thead class="table-light">
+                    <tr>
+                        <th>Check-in</th>
+                        <th>Check-out</th>
+                        <th>Nights</th>
+                        <th>Guests</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><%= reservation.checkin.toDateString() %></td>
+                        <td><%= reservation.checkout.toDateString() %></td>
+                        <td><%= nights %></td>
+                        <td><%= reservation.guests %></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Payment Breakdown -->
+            <table class="table table-bordered mt-4">
+                <thead class="table-light">
+                    <tr>
+                        <th>Description</th>
+                        <th class="text-end">Amount (₹)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Room Charges (<%= nights %> nights @ ₹<%= (reservation.totalPrice/nights).toLocaleString('en-IN') %>/night)</td>
+                        <td class="text-end"><%= reservation.totalPrice.toLocaleString('en-IN') %></td>
+                    </tr>
+                    <tr>
+                        <td>Tax (<%= (taxRate*100).toFixed(0) %>%)</td>
+                        <td class="text-end"><%= taxAmount.toLocaleString('en-IN') %></td>
+                    </tr>
+                    <tr class="table-active">
+                        <th>Total Amount</th>
+                        <th class="text-end">₹<%= grandTotal.toLocaleString('en-IN') %></th>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Payment Status -->
+            <div class="alert alert-success mt-4">
+                <h5 class="alert-heading">Payment Status: Paid</h5>
+                <p class="mb-0">Payment completed on <%= reservation.createdAt.toDateString() %></p>
+            </div>
+
+            <!-- Policies -->
+            <div class="mt-4 p-3 bg-light rounded">
+                <h5>Cancellation Policy</h5>
+                <p>Free cancellation up to 48 hours before check-in. No refunds for late cancellations.</p>
+            </div>
+        </div>
+        <div class="card-footer text-center">
+            <button onclick="window.print()" class="btn btn-primary">
+                <i class="fas fa-print"></i> Print Invoice
+            </button>
+            <a href="/listings/<%= reservation.listing._id %>" class="btn btn-secondary">
+                Back to Listing
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    @media print {
+        body * {
+            visibility: hidden;
+        }
+        .card, .card * {
+            visibility: visible;
+        }
+        .card {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            border: none;
+        }
+        .card-footer {
+            display: none;
+        }
+    }
+</style>

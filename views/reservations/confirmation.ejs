@@ -1,0 +1,39 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-success text-white">
+            <h2>Reservation Confirmed!</h2>
+        </div>
+        <div class="card-body">
+            <h3><%= listing.title %></h3>
+            <p><%= listing.location %>, <%= listing.country %></p>
+            
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <h4>Reservation Details</h4>
+                    <p><strong>Check-in:</strong> <%= reservation.checkin.toDateString() %></p>
+                    <p><strong>Check-out:</strong> <%= reservation.checkout.toDateString() %></p>
+                    <p><strong>Guests:</strong> <%= reservation.guests %></p>
+                    <p><strong>Total Price:</strong> ₹<%= reservation.totalPrice.toLocaleString("en-IN") %></p>
+                </div>
+                <div class="col-md-6">
+                    <h4>Contact Information</h4>
+                    <p><strong>Host:</strong> <%= listing.owner.username %></p>
+                    <% if (listing.phone) { %>
+                        <p><strong>Phone:</strong> <%= listing.phone %></p>
+                    <% } %>
+                </div>
+            </div>
+            
+            <div class="mt-4">
+                <a href="/listings/<%= listing._id %>" class="btn btn-primary">
+                    Back to Listing
+                </a>
+                <a href="/listings" class="btn btn-outline-secondary ms-2">
+                    Browse More Listings
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

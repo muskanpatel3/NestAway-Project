@@ -1,0 +1,241 @@
+<% layout("layouts/boilerplate") %>
+
+    <style>
+        #filters {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter {
+            text-align: center;
+            margin: 2rem 2rem 0 0;
+            opacity: 0.7;
+            text-decoration: none;
+            color: black;
+        }
+
+        .filter:hover {
+            opacity: 1;
+            cursor: pointer;
+        }
+
+        .filter p {
+            font-size: 0.8rem;
+        }
+
+        .tax-info {
+            display: none;
+        }
+
+        .tax-toggle {
+            border: 1px solid black;
+            border-radius: 1rem;
+            height: 3.25rem;
+            padding: 1rem;
+            margin-left: 2rem;
+            display: flex;
+            align-items: center;
+
+        }
+        .contact-section {
+        background-color: #f9f9f9;
+        padding: 40px;
+        border-radius: 16px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .info-item {
+        background: #fff;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        margin-bottom: 20px;
+        align-items: center;
+        transition: transform 0.3s;
+    }
+
+    .info-item:hover {
+        transform: translateY(-4px);
+        
+    }
+
+    .info-item i {
+        font-size: 28px;
+        color: #0d6efd;
+        margin-right: 15px;
+    }
+
+    .info-item h3 {
+        font-size: 18px;
+        margin-bottom: 6px;
+        font-weight: 600;
+    }
+
+    .info-item p {
+        margin: 0;
+        font-size: 15px;
+        color: #555;
+    }
+        
+    
+    </style>
+
+
+    <div id="filters" class="d-flex justify-content-around ">
+        <!-- my-4 -->
+        <a href="/listings?category=trending" class="filter text-decoration-none text-dark">
+            <div><i class="fa-solid fa-fire"></i></div>
+            <p>Trending</p>
+        </a>
+        <a href="/listings?category=arctic" class="filter text-decoration-none text-dark">
+            <div><i class="fa-solid fa-snowflake"></i></div>
+            <p>Arctic</p>
+        </a>
+        <a href="/listings?category=camping" class="filter text-decoration-none text-dark">
+            <div><i class="fa-solid fa-campground"></i></div>
+            <p>Camping</p>
+        </a>
+        <a href="/listings?category=farms" class="filter text-decoration-none text-dark text-center">
+            <div><i class="fa-solid fa-cow"></i></div>
+            <p>Farms</p>
+        </a>
+        <a href="/listings?category=rooms" class="filter text-decoration-none text-dark text-center">
+            <div><i class="fa-solid fa-house"></i></div>
+            <p>Rooms</p>
+        </a>
+
+        <a href="/listings?category=bed" class="filter text-decoration-none text-dark text-center">
+            <div><i class="fa-solid fa-bed"></i></div>
+            <p>Bed</p>
+        </a>
+
+        <a href="/listings?category=iconic-cities" class="filter text-decoration-none text-dark text-center">
+            <div><i class="fa-solid fa-mountain-city"></i></div>
+            <p>Iconic Cities</p>
+        </a>
+        <a href="/listings?category=mountain" class="filter text-decoration-none text-dark text-center">
+            <div><i class="fa-solid fa-mountain"></i></div>
+            <p>Mountain</p>
+        </a>
+
+        <a href="/listings?category=castles" class="filter text-decoration-none text-dark text-center">
+            <div><i class="fa-solid fa-chess-rook"></i></div>
+            <p>Castles</p>
+        </a>
+
+        <a href="/listings?category=amazing-pools" class="filter text-decoration-none text-dark text-center">
+            <div><i class="fa-solid fa-person-swimming"></i></div>
+            <p>Amazing Pools</p>
+        </a>
+        <a href="/listings?category=domes" class="filter text-decoration-none text-dark text-center">
+            <div><i class="fa-solid fa-igloo"></i></div>
+            <p>Domes</p>
+        </a>
+
+        <a href="/listings?category=boats" class="filter text-decoration-none text-dark text-center">
+            <div><i class="fa-solid fa-ship"></i></div>
+            <p>Boats</p>
+        </a>
+
+        <div class="tax-toggle">
+            <div class="form-check-reverse form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+                <label class="form-check-label" for="switchCheckDefault">Display total after taxes</label>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
+        <% for(let listing of allListings){ %>
+            <a href="/listings/<%= listing._id %>" class="listing-link">
+                <div class="card col listing-card">
+                    <img src="<%= listing.image.url %>" class="card-img-top" alt="listing_image" style="height: 20rem;">
+                    <div class="card-img-overlay">
+
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            <b>
+                                <%= listing.title %>
+                            </b> <br>
+                            &#8377; <%= listing.price.toLocaleString("en-IN") %> /night
+                                <i class="tax-info"> &nbsp; &nbsp; +18% GST</i>
+                        </p>
+                    </div>
+                </div>
+            </a>
+            <% }%>
+    </div>
+    <!-- Contact Section -->
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <hr>
+        <div class="row gy-4">
+            <!-- Contact Info -->
+            <div class="col-lg-4">
+                
+             <h2>Contact Details</h2>
+             
+                <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <div>
+                        <h3>Location</h3>
+                        <p>1950,New Delhi,India</p>
+                    </div>
+                </div>
+
+                <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
+                    <i class="fa-solid fa-clock"></i>
+                    <div>
+                        <h3>Reception Hours</h3>
+                        <p>Monday-Saturday:<br>Open 24 Hours</p>
+                    </div>
+                </div>
+
+                <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
+                    <i class="fa-solid fa-phone"></i>
+                    <div>
+                        <h3>Call Us</h3>
+                        <p>+91 5589554885</p>
+                    </div>
+                </div>
+
+                <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="500">
+                    <i class="fa-solid fa-envelope"></i>
+                    <div>
+                        <h3>Email Us</h3>
+                        <p>staylikehome@example.com</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Google Map -->
+            <div class="col-lg-8">
+                <h3>Where you'll be</h3>
+                <div id="map" class="mb-5 col-lg-8" data-aos="fade-up" data-aos-delay="200">
+                    <iframe style="border:0; width: 100%; height: 400px;"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d112094.14487494313!2d77.10249065!3d28.7040592!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d02685bb6a155%3A0x8420cf1535d5e0c1!2sNew%20Delhi%2C%20Delhi!5e0!3m2!1sen!2sin!4v1713789357093!5m2!1sen!2sin"
+                        frameborder="0" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        let taxSwitch = document.getElementById("switchCheckDefault");
+        taxSwitch.addEventListener("click", () => {
+            // console.log("clicked");
+            let taxInfo = document.getElementsByClassName("tax-info");
+            // console.log(taxInfo);
+            for (info of taxInfo) {
+                if (info.style.display != "inline") {
+                    info.style.display = "inline";
+                } else {
+                    info.style.display = "none";
+                }
+            }
+        })
+    </script>

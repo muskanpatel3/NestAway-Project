@@ -1,0 +1,323 @@
+<% layout("layouts/boilerplate") %>
+    <style>
+        .admin-dashboard {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            padding-top: 2rem;
+        }
+
+        .stat-card {
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .counting {
+            background-color: white !important;
+        }
+
+        .quick-actions .btn {
+            font-weight: 500;
+            padding: 0.5rem 1.25rem;
+            margin: 2px 0.75rem 20px 0.75rem;
+        }
+
+        .card-title {
+            margin-left: 20px;
+            margin-top: 20px;
+        }
+
+        .row {
+
+            margin: 2px 0.75rem 20px 0.5rem;
+        }
+
+        .table-responsive {
+            margin: 0 20px 0 20px;
+        }
+
+        .user-table {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .user-table th {
+            background-color: #343a40;
+            color: white;
+            font-weight: 500;
+            margin-left: 20px !important;
+        }
+
+
+        .user-table tr:hover {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+
+        .badge {
+            font-size: 0.85rem;
+            padding: 0.35em 0.65em;
+            font-weight: 500;
+        }
+
+        .search-box {
+            margin-bottom: 1.5rem;
+        }
+
+        .card {
+            margin: 20px auto !important;
+        }
+
+        .search-box{
+            width: 60%;
+            
+        }
+    </style>
+
+    <div class="admin-dashboard">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h1 class="h3 mb-0">Admin Dashboard</h1>
+
+                    </div>
+
+                    <!-- Quick Actions Card -->
+                    <div class="card stat-card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3 ">Quick Actions</h5>
+                            <div class="quick-actions">
+                                <a href="/admin/users" class="btn btn-primary">
+                                    <i class="fas fa-users me-2"></i>Manage Users
+                                </a>
+                                <a href="/listings/new" class="btn btn-success">
+                                    <i class="fas fa-plus-circle me-2"></i>Create Listing
+                                </a>
+                                <a href="/admin/reports" class="btn btn-info">
+                                    <i class="fas fa-chart-bar me-2"></i>View Reports
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Statistics Card -->
+                    <div class="card stat-card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3">Statistics</h5>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-primary bg-opacity-10 p-3 rounded me-3">
+                                            <i class="fas fa-users text-primary fs-4"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="mb-0">Total Users</h6>
+                                            <h3 class="mb-0">
+                                                <p>
+                                                    <span class="counting bg-primary">
+                                                        <%= users.length %>
+                                                    </span>
+                                                </p>
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-success bg-opacity-10 p-3 rounded me-3">
+                                            <i class="fas fa-user-shield text-success fs-4"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="mb-0">Admin User</h6>
+                                            <h3 class="mb-0">
+                                                <p><b>Muskan Patel</b></p>
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-warning bg-opacity-10 p-3 rounded me-3">
+                                            <i class="fas fa-home text-warning fs-4"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="mb-0">Total Listings</h6>
+                                            <h3 class="mb-0">
+
+                                                <span class="counting bg-primary">
+                                                    <%= listings.length %>
+                                                </span></p>
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Table Card -->
+                    <div class="card stat-card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5 class="card-title mb-0">User Management</h5>
+
+                            </div>
+
+                            <div class="table-responsive">
+                                <table class="table user-table ">
+                                    <thead>
+                                        <tr>
+                                            <th>Username</th>
+                                            <th>Email</th>
+                                            <th>Role</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% users.forEach(user=> { %>
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="avatar me-4">
+                                                            <span class="avatar-initial bg-primary rounded-circle">
+                                                                <%= user.username.charAt(0).toUpperCase() %>
+                                                            </span>
+                                                        </div>
+                                                        <div>
+                                                            <h6 class="mb-0">
+                                                                <%= user.username %>
+                                                            </h6>
+                                                            <small class="text-muted">ID: <%=
+                                                                    user._id.toString().slice(-6) %></small>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <%= user.email %>
+                                                </td>
+                                                <td>
+                                                    <% if(user.isAdmin) { %>
+                                                        <span class="badge bg-success">
+                                                            <i class="fas fa-user-shield me-1"></i> Admin
+                                                        </span>
+                                                        <% } else { %>
+                                                            <span class="badge bg-secondary">
+                                                                <i class="fas fa-user me-1"></i> User
+                                                            </span>
+                                                            <% } %>
+                                                </td>
+                                            </tr>
+                                            <% }); %>
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="search-box " >
+                        <h3>Search listings by title, owner, price or location</h3>
+                        <form class="d-flex">
+                            <input class="form-control me-2" type="search" id="listingSearch"
+                                placeholder="search their" aria-label="Search">
+                        </form>
+                    </div>
+
+                    <!-- Listings Table -->
+                    <div class="card">
+                        <div class="card-header mt-3 mb-3">
+                            <h4>Listings</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="listingsTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Owner</th>
+                                            <th>Price</th>
+                                            <th>Location</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="listingsTableBody">
+                                        <% listings.forEach(listing=> { %>
+                                            <tr class="listing-row">
+                                                <td class="search-title">
+                                                    <%= listing.title %>
+                                                </td>
+                                                <td class="search-owner">
+                                                    <% if(listing.owner) { %>
+                                                        <%= listing.owner.username %>
+                                                            <% } else { %>
+                                                                N/A
+                                                                <% } %>
+                                                </td>
+                                                <td class="search-price">₹<%= listing.price %>
+                                                </td>
+                                                <td class="search-location">
+                                                    <%= listing.location %>
+                                                </td>
+                                                <td class="text-end">
+                                                    <!-- Delete button with confirmation -->
+                                                    <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST" class="d-inline">
+                                                        <button type="submit" class="btn btn-sm btn-danger" 
+                                                            onclick="return confirm('Are you sure you want to delete this listing? This action cannot be undone.')">
+                                                            <i class="fas fa-trash-alt"></i> Delete
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                            <% }); %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const searchInput = document.getElementById('listingSearch');
+            const listingRows = document.querySelectorAll('.listing-row');
+
+            // Function to perform search
+            function performSearch() {
+                const searchTerm = searchInput.value.toLowerCase().trim();
+
+                listingRows.forEach(row => {
+                    const title = row.querySelector('.search-title').textContent.toLowerCase();
+                    const owner = row.querySelector('.search-owner').textContent.toLowerCase();
+                    const price = row.querySelector('.search-price').textContent.toLowerCase();
+                    const location = row.querySelector('.search-location').textContent.toLowerCase();
+
+                    if (title.includes(searchTerm) ||
+                        owner.includes(searchTerm) ||
+                        price.includes(searchTerm) ||
+                        location.includes(searchTerm)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            }
+
+            // Event listener for input changes
+            searchInput.addEventListener('input', performSearch);
+
+            // Event listener for search button click
+            document.querySelector('.search-btn').addEventListener('click', performSearch);
+
+            // Initial search to handle any existing value
+            performSearch();
+        });
+    </script>
