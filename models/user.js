@@ -17,15 +17,6 @@ const userSchema = new Schema({
         type: Boolean,
         default: false
     },
-//     listings: [{
-//         type: Schema.Types.ObjectId,
-//         ref: 'Listing'
-//     }],
-//     reservations: [{
-//         type: Schema.Types.ObjectId,
-//         ref: 'Reservation'
-//     }]
-// }, { timestamps: true 
 }
 )
 
@@ -45,16 +36,6 @@ userSchema.post('findOneAndDelete', async function(user) {
         // Delete all listings by this user
         await Listing.deleteMany({ owner: user._id });
         
-        // Delete all reviews directly authored by this user
-        // await Review.deleteMany({ author: user._id });
-
-        // // Delete all reservations
-        // await Reservation.deleteMany({ 
-        //     $or: [
-        //         { guest: user._id },
-        //         { listing: { $in: user.listings } }
-        //     ]
-        // });
         
         console.log(`Deleted all data associated with user ${user.username}`);
     }

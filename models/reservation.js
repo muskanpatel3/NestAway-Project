@@ -63,7 +63,7 @@ approvedBy: {
 approvedAt: Date
 });
 
-// Add text index for better search
+
 reservationSchema.index({ listingTitle: 'text', userName: 'text' });
 
 module.exports = mongoose.model("Reservation", reservationSchema);

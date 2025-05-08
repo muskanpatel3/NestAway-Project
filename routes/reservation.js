@@ -12,7 +12,9 @@ router.post('/test-route', (req, res) => {
 });
 
 // POST /listings/:id/reservations
-router.post('/', isLoggedIn, wrapAsync(reservationsController.createReservation));
+router.post('/', 
+    isLoggedIn, 
+    wrapAsync(reservationsController.createReservation));
 
 // POST /listings/:id/reservations/:reservationId/approve
 router.post('/:reservationId/approve', 
@@ -22,26 +24,9 @@ router.post('/:reservationId/approve',
 );
 
 // GET /reservations/:id/invoice - Show reservation invoice
-router.get('/:id/invoicePage', isLoggedIn,  wrapAsync(reservationsController.showInvoice));
+router.get('/:id/invoicePage', 
+    isLoggedIn,  
+    wrapAsync(reservationsController.showInvoice));
 
-
-// router.get('/confirmation', wrapAsync(async (req, res) => {
-//     const reservation = req.session.reservationData;
-//     if (!reservation) {
-//         req.flash('error', 'Reservation data not found');
-//         return res.redirect('/listings');
-//     }
-
-//     const listing = await Listing.findById(reservation.listingId);
-//     if (!listing) {
-//         req.flash('error', 'Listing not found');
-//         return res.redirect('/listings');
-//     }
-
-//     res.render('reservation/confirmation', {
-//         listing,
-//         reservation
-//     });
-// }));
 
 module.exports = router;

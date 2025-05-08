@@ -1,9 +1,8 @@
-// controllers/users.js
+
 const User = require("../models/user");
 const Listing = require("../models/listing");
 
 module.exports = {
-    // Authentication
     renderSignupForm: (req, res) => {
         res.render("users/signup");
     },
@@ -43,30 +42,7 @@ module.exports = {
         });
     },
 
-//     // Admin Dashboard
-    // renderAdminDashboard: async (req, res) => {
-    //     try {
-    //         const [users, listings, userCount, adminCount, listingCount] = await Promise.all([
-    //             User.find({}),
-    //             Listing.find({}).populate('owner'),
-    //             User.countDocuments(),
-    //             User.countDocuments({ isAdmin: true }),
-    //             Listing.countDocuments()
-    //         ]);
-            
-    //         res.render("users/admin/dashboard", { 
-    //             users,
-    //             listings,
-    //             userCount,
-    //             adminCount,
-    //             listingCount,
-    //             currentUser: req.user 
-    //         });
-    //     } catch (err) {
-    //         req.flash("error", "Failed to load dashboard data");
-    //         res.redirect("/admin");
-    //     }
-    // },
+   // Admin Dashboard  
     renderAdminDashboard: async (req, res) => {
        
     try {
@@ -92,7 +68,7 @@ module.exports = {
     }
 },
 
-//     // User Management
+    // User Management
     listAllUsers: async (req, res) => {
         try {
             const users = await User.find({});
@@ -141,32 +117,6 @@ module.exports = {
         }
     },
 
-    // demoteAdmin: async (req, res) => {
-    //     try {
-    //         const { id } = req.params;
-    //         const user = await User.findByIdAndUpdate(
-    //             id, 
-    //             { isAdmin: false }, 
-    //             { new: true }
-    //         );
-            
-    //         if (!user) {
-    //             req.flash("error", "User not found");
-    //             return res.redirect("/admin/users");
-    //         }
-            
-    //         if (user._id.equals(req.user._id)) {
-    //             req.flash("error", "You cannot demote yourself");
-    //             return res.redirect("/admin/users");
-    //         }
-            
-    //         req.flash("success", `Admin ${user.username} demoted to regular user!`);
-    //         res.redirect("/admin/users");
-    //     } catch (err) {
-    //         req.flash("error", "Failed to demote admin");
-    //         res.redirect("/admin/users");
-    //     }
-    // }
 
 
     demoteAdmin: async (req, res) => {
@@ -224,4 +174,3 @@ module.exports = {
     }
 };
 
-// };

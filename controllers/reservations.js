@@ -1,7 +1,8 @@
 const Reservation = require('../models/reservation');
 const Listing = require('../models/listing');
-const wrapAsync = require('../utils/wrapAsync');  // Add this line at the top
-// In controllers/reservations.js
+const wrapAsync = require('../utils/wrapAsync');  
+
+
 module.exports.createReservation = async (req, res) => {
     try {
         const { id } = req.params;
@@ -23,11 +24,11 @@ module.exports.createReservation = async (req, res) => {
         const nights = Math.ceil((new Date(checkout) - new Date(checkin)) / (1000 * 60 * 60 * 24));
         const totalPrice = listing.price * nights;
 
-        // Create reservation WITH listing phone number
+
         const reservation = new Reservation({
             listingTitle: listing.title,
             listing: listing._id,
-            listingPhone: listing.phone,  // Store phone number directly
+            listingPhone: listing.phone,  
             user: req.user._id,
             userName: req.user.username,
             userEmail: req.user.email,
@@ -60,7 +61,7 @@ module.exports.createReservation = async (req, res) => {
 module.exports.getAllReservations = async (req, res) => {
     try {
         const reservations = await Reservation.find({})
-            .populate('listing', 'title phone')  // Include phone here
+            .populate('listing', 'title phone')  
             .populate('user', 'username email')
             .sort({ createdAt: -1 });
             

@@ -7,7 +7,6 @@ const listingSchema = new Schema({
   title: String,
   description: String,
   phone: String,
-  // description: String,
   image: {
     url: String,
     filename: String,
@@ -34,7 +33,6 @@ const listingSchema = new Schema({
 
   category:{
      type: String,
-    //  enum: ["mountains", "arctic", "farms", " deserts"]
     enum: [
       "trending",
       "arctic",

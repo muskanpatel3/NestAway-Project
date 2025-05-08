@@ -11,20 +11,6 @@ router.route("/signup")
     .get(userController.renderSignupForm)
     .post(wrapAsync(userController.signup))
 
-// router.route("/login")
-//     .get(userController.renderLoginForm)
-//     .post(
-//         saveRedirectUrl,
-//         passport.authenticate("local", {
-//             failureRedirect: '/login',
-//             failureFlash: true
-//         }), 
-//         userController.login);
-
-
-// router.get("/logout", userController.logout)
-
-
 
 router.route("/login")
     .get(userController.renderLoginForm)
@@ -39,9 +25,6 @@ router.route("/login")
 
 router.get("/logout", userController.logout);
 
-// Admin routes
-// router.get("/admin", isLoggedIn, isAdmin, userController.renderAdminDashboard);
-
 
 router.get('/admin', isLoggedIn, isAdmin, async (req, res) => {
     try {
@@ -53,7 +36,7 @@ router.get('/admin', isLoggedIn, isAdmin, async (req, res) => {
 
         res.render('users/admin/dashboard', {
             users,
-            listings  // Pass listings to the template
+            listings  
         });
     } catch (err) {
         console.error('Admin dashboard error:', err);
@@ -66,10 +49,19 @@ router.route("/admin/users")
     .get(isLoggedIn, isAdmin, userController.listAllUsers)
     .post(isLoggedIn, isAdmin, wrapAsync(userController.createAdmin));
 
-router.post("/admin/users/:id/promote", isLoggedIn, isAdmin, wrapAsync(userController.promoteToAdmin));
+router.post("/admin/users/:id/promote", 
+    isLoggedIn, 
+    isAdmin, 
+    wrapAsync(userController.promoteToAdmin));
 
-router.post("/admin/users/:id/demote", isLoggedIn, isAdmin, wrapAsync(userController.demoteAdmin));
+router.post("/admin/users/:id/demote", 
+    isLoggedIn, 
+    isAdmin, 
+    wrapAsync(userController.demoteAdmin));
 
-router.delete("/admin/users/:id", isLoggedIn, isAdmin, wrapAsync(userController.deleteUser));
+router.delete("/admin/users/:id", 
+    isLoggedIn, 
+    isAdmin, 
+    wrapAsync(userController.deleteUser));
 
 module.exports = router;
