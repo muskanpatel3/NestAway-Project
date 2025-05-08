@@ -1,0 +1,257 @@
+body {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container {
+    flex: 1;
+}
+
+/* navbar */
+.navbar {
+    height: 4.5rem;
+    background-color: white;
+}
+
+.fa-compass {
+    color: #fe424d;
+    font-size: 2rem;
+}
+
+.nav-link {
+    color: #222222 !important;
+}
+
+/* footer */
+.f-info-links a {
+    text-decoration: none;
+    color: #222222;
+}
+
+.f-info-links a:hover {
+    text-decoration: underline;
+}
+
+.f-info-links,
+.f-info-socials,
+.f-info-brand {
+    width: 100%;
+    /* vertical-align: middle; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.f-info-socials i {
+    margin-right: 1rem;
+    font-size: 1.2rem;
+}
+
+.f-info {
+    text-align: center;
+    height: 6rem;
+    background-color: #ebebeb;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: space-evenly;
+}
+
+.listing-card {
+    border: none !important;
+    margin-bottom: 2rem;
+}
+
+.card-img-top {
+    border-radius: 1rem !important;
+    width: 100% !important;
+    object-fit: cover !important;
+}
+
+.card-body {
+    padding: 0 !important;
+}
+
+.card-text p {
+    font-weight: 400 !important;
+}
+
+.listing-link {
+    text-decoration: none;
+}
+
+/* Card Effect */
+.card-img-overlay {
+    opacity: 0;
+}
+
+.card-img-overlay:hover {
+    opacity: 0.2;
+    background-color: white;
+}
+
+/* New page */
+.add-btn {
+    background-color: #fe424d !important;
+    border: none !important;
+}
+
+/* Edit btn */
+/* .add-btn {
+    background-color: #fe424d !important;
+    border: none !important;
+} */
+
+.edit-btn {
+    height: 2.5rem;
+    width: 6rem;
+    background-color: #fe424d !important;
+    border: none !important;
+}
+
+.delete-btn {
+    height: 2.5rem;
+    width: 6rem;
+}
+
+/* Show page */
+
+.show-img {
+    /* height: 30vh ;  */
+    height: 40vh;
+
+}
+
+.btns {
+    display: flex;
+}
+
+.show-card {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+
+/* map */
+#map {
+    height: 400px;
+    width: 80vh;
+}
+
+
+/*********************************************************** edit and new *************************************************************/
+
+/* Form Container Styling */
+.col-8.offset-2 {
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Title Styling */
+h3 {
+    color: #333;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+
+/* Form Label Styling */
+.form-label {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Input Fields */
+.form-control,
+#category,
+input[type="file"] {
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    padding: 12px;
+    font-size: 14px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Placeholder Styling */
+.form-control::placeholder {
+    color: #aaa;
+    font-style: italic;
+}
+
+/* Focus Effect for Input Fields */
+.form-control:focus {
+    border-color: #5b9bd5;
+    box-shadow: 0 0 8px rgba(91, 155, 213, 0.5);
+}
+
+/* Hover Effect for Input Fields */
+.form-control:hover {
+    border-color: #5b9bd5;
+}
+
+/* File Input Background */
+input[type="file"] {
+    background-color: #f1f1f1;
+}
+
+/* Select Dropdown */
+#category {
+    padding: 12px;
+}
+
+/* Spacing for fields */
+.mb-3,
+.col-md-4 {
+    margin-bottom: 20px;
+}
+
+/* Validation Feedback */
+.valid-feedback {
+    color: #28a745;
+}
+
+.invalid-feedback {
+    color: #dc3545;
+}
+
+/* Unified Button Styling */
+.form-btn {
+    /* background-color: #007bff; */
+    border: none;
+    border-radius: 5px;
+    padding: 12px 25px;
+    font-size: 16px;
+    color: #fff;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.form-btn:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .row.mt-3 {
+        background-size: cover;
+        background-position: center;
+    }
+
+    .col-8.offset-2 {
+        width: 100%;
+        padding: 20px;
+    }
+}
+
+.availability-btn{
+    background-color:  #fe424d !important;
+    border: none !important;
+}
+
+
