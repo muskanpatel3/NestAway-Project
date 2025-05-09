@@ -1,29 +1,103 @@
 <% layout("layouts/boilerplate") %>
 
-    <div class="row mt-3">
-        <h1 class="col-8 offset-3">SignUp on Wanderlust</h1>
-        <div class="col-8 offset-3">
-            <form action="/signup" method="POST" class="needs-validation" novalidate>
-                <div class="mb-3">
-                    <label for="username" class="form-label">Username</label>
-                    <input name="username" id="username" type="text" class="form-control" required>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
-                </div>
+<style>
+  .login-card {
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    /* width: 100%; */
+     max-width: 500px;  /* Maximum width 500px */
+    width: 110%; 
+  }
+  
+  
+  .login-header {
+    color:  #082b27;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  
+  .login-subheader {
+    color:  #082b27;
+    margin-bottom: 2rem;
+  }
+  
+  .login-input {
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+  }
+  
+  .login-btn {
+    border-radius: 8px;
+    background-color: #2a9d8f;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    width: 100%;
+  }
+  
+  .login-btn:hover {
+    background-color: #154f48;
+  }
+  
+  .login-container {
+    max-width: 500px;
+    margin: 2rem auto;
+  }
+</style>
 
-                <div class="mb-3">
-                    <label for="email" class="form-label">email</label>
-                    <input name="email" id="email" type="email" class="form-control" required>
-                    
-                </div>
-                
-                <div class="mb-3">
-                    <label for="password" class="form-label">password</label>
-                    <input name="password" id="password" type="password" class="form-control" required>
-                    
-                </div>
-                <button class="btn btn-success">SignUp</button>
-            </form>
+<div class="row justify-content-center mt-3">
+  <div class="col-md-10 col-lg-8 login-container">
+    <div class="card login-card p-4">
+      <div class="card-body">
+        <div class="text-center mb-4">
+          <h2 class="login-header">Join Wanderlust</h2>
+          <p class="login-subheader">Begin your adventure with us</p>
         </div>
+        
+        <form action="/signup" method="POST" class="needs-validation" novalidate>
+          <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input name="username" 
+                   id="username" 
+                   type="text" 
+                   class="form-control login-input" 
+                   placeholder="Choose a username"
+                   required>
+          </div>
+
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input name="email" 
+                   id="email" 
+                   type="email" 
+                   class="form-control login-input" 
+                   placeholder="Enter your email"
+                   required>
+          </div>
+
+          <div class="mb-4">
+            <label for="password" class="form-label">Password</label>
+            <input name="password" 
+                   id="password"
+                   type="password" 
+                   class="form-control login-input" 
+                   placeholder="Create a password"
+                   required>
+            <div class="form-text mt-2">
+              Use 8 or more characters with a mix of letters, numbers & symbols
+            </div>
+          </div>
+          
+          <button class="btn btn-light login-btn">
+            Sign Up
+          </button>
+
+          <div class="text-center mt-3">
+            <p class="mb-0">Already have an account? <a href="/login" class="text-decoration-none">Sign in</a></p>
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
+</div>

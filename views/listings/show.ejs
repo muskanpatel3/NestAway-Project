@@ -1,234 +1,342 @@
 <% layout("layouts/boilerplate") %>
 
-<style>
-    .listing-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 2rem 1rem;
-    }
-    .listing-image {
-        width: 100%;
-        height: 400px;
-        object-fit: cover;
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        margin-bottom: 2rem;
-    }
-    .content-wrapper {
-        display: grid;
-        grid-template-columns: 2fr 1fr;
-        gap: 2rem;
-    }
-    .reservation-card {
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        padding: 1.5rem;
-        background: linear-gradient(to right, #ffffff, #f8f9fa);
-        position: sticky;
-        top: 1rem;
-        height: fit-content;
-    }
-    .left-content {
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
-    }
-    .listing-title {
-        font-size: 2rem;
-        font-weight: 600;
-        margin-bottom: 0.5rem;
-    }
-    .price {
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: #333;
-    }
-    .reservations-table {
-        width: 100%;
-        margin-top: 1rem;
-    }
-    .bg-success { padding: 8px; font-size: 15px;}
-    .badge-success { background-color: #28a745;}
-    .badge-warning { background-color: #ffc107; color: #212529; }
-    .badge-danger { background-color: #dc3545; }
-    .bg-info.card-header { background-color: #212529 !important; }
+    <style>
+        .listing-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
 
-    @media (max-width: 768px) {
-        .content-wrapper { grid-template-columns: 1fr; }
-        .reservation-card { position: static; margin-top: 2rem; }
-    }
-</style>
+        .listing-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
 
-<div class="listing-container">
-    <img src="<%= listing.image.url %>" class="listing-image" alt="<%= listing.title %>">
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
 
-    <div class="content-wrapper">
-        <div class="left-content">
-            <div class="listing-details">
-                <div class="listing-header">
-                    <h1 class="listing-title"><%= listing.title %></h1>
-                    <p>Owned by <strong><%= listing.owner.username %></strong></p>
+        .reservation-card {
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            background: linear-gradient(to right, #ffffff, #f8f9fa);
+            position: sticky;
+            top: 1rem;
+            height: fit-content;
+        }
+
+        .left-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .listing-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .price {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .reservations-table {
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .bg-success {
+            padding: 8px;
+            font-size: 14px;
+        }
+
+        .bg-warning {
+            padding: 8px;
+            font-size: 15px;
+        }
+
+        .bg-danger {
+            padding: 8px;
+            font-size: 15px;
+        }
+
+        .badge-success {
+            background-color: #28a745;
+        }
+
+        .badge-warning {
+            background-color: #ffc107;
+            color: #212529;
+        }
+
+        .badge-danger {
+            background-color: #dc3545;
+        }
+
+        .bg-info.card-header {
+            background-color: #212529 !important;
+        }
+
+        @media (max-width: 768px) {
+            .content-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .reservation-card {
+                position: static;
+                margin-top: 2rem;
+            }
+        }
+    </style>
+
+    <div class="listing-container">
+        <img src="<%= listing.image.url %>" class="listing-image" alt="<%= listing.title %>">
+
+        <div class="content-wrapper">
+            <div class="left-content">
+                <div class="listing-details">
+                    <div class="listing-header">
+                        <h1 class="listing-title">
+                            <%= listing.title %>
+                        </h1>
+                        <p>Owned by <strong>
+                                <%= listing.owner.username %>
+                            </strong></p>
+                    </div>
+
+                    <div class="details-section">
+                        <h3>Description</h3>
+                        <p>
+                            <%= listing.description %>
+                        </p>
+                        <p class="price">₹<%= listing.price.toLocaleString("en-IN") %> per night</p>
+                        <p><i class="fas fa-map-marker-alt"></i>
+                            <%= listing.location %>, <%= listing.country %>
+                        </p>
+                        <p><i class="fas fa-tag"></i>
+                            <%= listing.category %>
+                        </p>
+                    </div>
+
+                    <% if(currUser && listing.owner._id.equals(currUser._id)) { %>
+                        <div class="action-buttons">
+                            <a href="/listings/<%= listing._id %>/edit" class="btn btn-outline-dark">Edit Listing</a>
+                            <form method="POST" action="/listings/<%=listing._id%>?_method=DELETE">
+                                <button class="btn btn-outline-danger mt-3" type="submit">Delete Listing</button>
+                            </form>
+                        </div>
+                        <% } %>
                 </div>
 
-                <div class="details-section">
-                    <h3>Description</h3>
-                    <p><%= listing.description %></p>
-                    <p class="price">₹<%= listing.price.toLocaleString("en-IN") %> per night</p>
-                    <p><i class="fas fa-map-marker-alt"></i> <%= listing.location %>, <%= listing.country %></p>
-                    <p><i class="fas fa-tag"></i> <%= listing.category %></p>
-                </div>
-
-                <% if(currUser && listing.owner._id.equals(currUser._id)) { %>
-                    <div class="action-buttons">
-                        <a href="/listings/<%= listing._id %>/edit" class="btn btn-outline-dark">Edit Listing</a>
-                        <form method="POST" action="/listings/<%=listing._id%>?_method=DELETE">
-                            <button class="btn btn-outline-danger mt-3" type="submit">Delete Listing</button>
-                        </form>
-                    </div>
-                <% } %>
-            </div>
-
-            <% if (currentUser && (currentUser._id.equals(listing.owner._id) || currentUser.isAdmin)) { %>
-                <div class="card">
-                    <div class="card-header bg-dark text-white">
-                        <h3>All Reservations</h3>
-                    </div>
-                    <div class="card-body">
-                        <% if (allReservations.length > 0) { %>
-                            <div class="table-responsive">
-                                <table class="table reservations-table">
-                                    <thead>
-                                        <tr>
-                                            <th>User</th>
-                                            <th>Dates</th>
-                                            <th>Guests</th>
-                                            <th>Total</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <% allReservations.forEach(reservation => { %>
+                <% if (currentUser && (currentUser._id.equals(listing.owner._id) || currentUser.isAdmin)) { %>
+                    <div class="card">
+                        <div class="card-header bg-dark text-white">
+                            <h3>All Reservations</h3>
+                        </div>
+                        <div class="card-body">
+                            <% if (allReservations.length> 0) { %>
+                                <div class="table-responsive">
+                                    <table class="table reservations-table">
+                                        <thead>
                                             <tr>
-                                                <td><%= reservation.userName %> (<%= reservation.userEmail %>)</td>
-                                                <td><%= reservation.checkin.toDateString() %> - <%= reservation.checkout.toDateString() %></td>
-                                                <td><%= reservation.guests %></td>
-                                                <td>₹<%= reservation.totalPrice.toLocaleString("en-IN") %></td>
-                                                <td>
-                                                    <span class="badge  bg-<%= 
+                                                <th>User</th>
+                                                <th>Dates</th>
+                                                <th>Guests</th>
+                                                <th>Total</th>
+                                                <th>Status</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% allReservations.forEach(reservation=> { %>
+                                                <tr>
+                                                    <td>
+                                                        <%= reservation.userName %> (<%= reservation.userEmail %>)
+                                                    </td>
+                                                    <td>
+                                                        <%= reservation.checkin.toDateString() %> - <%=
+                                                                reservation.checkout.toDateString() %>
+                                                    </td>
+                                                    <td>
+                                                        <%= reservation.guests %>
+                                                    </td>
+                                                    <td>₹<%= reservation.totalPrice.toLocaleString("en-IN") %>
+                                                    </td>
+                                                    <td>
+                                                        <span class="badge  bg-<%= 
                                                         reservation.status === 'confirmed' ? 'success' : 
                                                         reservation.status === 'cancelled' ? 'danger' : 
                                                         'warning' %>">
-                                                        <%= reservation.status %>
-                                                    </span>
-                                                </td>
-                                                <td>
-                                                    <% if (reservation.status === 'pending' && currentUser._id.equals(listing.owner._id)) { %>
-                                                        <form action="/listings/<%= listing._id %>/reservations/<%= reservation._id %>/approve" method="POST">
-                                                            <button type="submit" class="btn btn-sm btn-success">Confirm</button>
-                                                        </form>
-                                                    <% } %>
-                                                    <% if (reservation.status === 'confirmed') { %>
-                                                        <form action="/reservations/<%= reservation._id %>/cancel" method="POST">
-                                                            <button type="submit" class="btn btn-sm btn-outline-danger">Cancel</button>
-                                                        </form>
-                                                    <% } %>
-                                                </td>
-                                            </tr>
-                                        <% }); %>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <% } else { %>
-                            <p>No reservations yet.</p>
-                        <% } %>
-                    </div>
-                </div>
-            <% } %>
+                                                            <%= reservation.status %>
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <% if ((reservation.status==='pending' ||
+                                                            reservation.status==='confirmed' ||
+                                                            reservation.status==='cancelled' ) &&
+                                                            currentUser._id.equals(listing.owner._id)) { %>
+                                                            <form
+                                                                action="/listings/<%= listing._id %>/reservations/<%= reservation._id %>/toggle-status"
+                                                                method="POST">
+                                                                <button type="submit" class="btn btn-sm 
+      <%= reservation.status === 'pending' ? 'btn-success' : 
+           reservation.status === 'confirmed' ? 'btn-warning' : 
+           'btn-danger' %>">
+                                                                    <%= reservation.status==='pending'
+                                                                        ? 'Confirm Reservation' :
+                                                                        reservation.status==='confirmed'
+                                                                        ? 'Cancel Reservation' : 'Set Pending' %>
+                                                                </button>
+                                                            </form>
+                                                            <% } %>
 
-            <% if (userReservations.length > 0) { %>
-                <div class="card">
-                    <div class="card-header bg-info text-white">
-                        <h3>Your Reservations</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table reservations-table">
-                                <thead>
-                                    <tr>
-                                        <th>Dates</th>
-                                        <th>Guests</th>
-                                        <th>Total</th>
-                                        <th>Owner Phone</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <% userReservations.forEach(reservation => { %>
-                                        <tr>
-                                            <td><%= reservation.checkin.toDateString() %> - <%= reservation.checkout.toDateString() %></td>
-                                            <td><%= reservation.guests %></td>
-                                            <td>₹<%= reservation.totalPrice.toLocaleString("en-IN") %></td>
-                                            <td><%= reservation.listingPhone %></td>
-                                            <td>
-                                                <span class="badge bg-<%= 
-                                                    reservation.status === 'confirmed' ? 'success' : 
-                                                    reservation.status === 'cancelled' ? 'danger' : 
-                                                    'warning' %>">
-                                                    <%= reservation.status %>
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    <% }); %>
-                                </tbody>
-                            </table>
+                                                    </td>
+                                                </tr>
+                                                <% }); %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <% } else { %>
+                                    <p>No reservations yet.</p>
+                                    <% } %>
                         </div>
                     </div>
-                </div>
-            <% } %>
+                    <% } %>
 
-            <div class="map-section">
-                <h3><i class="fas fa-map-marked-alt"></i> Location</h3>
-                <iframe src="https://maps.google.com/maps?q=<%= listing.location %>&output=embed"
-                    width="100%" height="300" style="border:0; border-radius: 8px;" allowfullscreen></iframe>
-                <p><i class="fas fa-info-circle"></i> The phone number and other details will be provided after reservation.</p>
+                        <% if (userReservations.length> 0) { %>
+                            <div class="card">
+                                <div class="card-header bg-info text-white">
+                                    <h3>Your Reservations</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table reservations-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Property</th>
+                                                    <th>Dates</th>
+                                                    <th>Guests</th>
+                                                    <th>Total</th>
+                                                    <th>Owner Phone</th>
+                                                    <th>Status</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% userReservations.forEach(reservation=> { %>
+                                                    <tr>
+                                                        <td>
+                                                            <%= reservation.listingTitle %>
+                                                        </td>
+                                                        <td>
+                                                            <%= reservation.checkin.toDateString() %> - <br>
+                                                                <%= reservation.checkout.toDateString() %>
+                                                        </td>
+                                                        <td>
+                                                            <%= reservation.guests %>
+                                                        </td>
+                                                        <td>₹<%= reservation.totalPrice.toLocaleString("en-IN") %>
+                                                        </td>
+                                                        <td>
+                                                            <%= reservation.listingPhone %>
+                                                        </td>
+                                                        <td>
+                                                            <span class="badge bg-<%= 
+                        reservation.status === 'confirmed' ? 'success' : 
+                        reservation.status === 'cancelled' ? 'danger' : 
+                        'warning' %>">
+                                                                <%= reservation.status %>
+                                                            </span>
+                                                            <% if (reservation.status==='confirmed' &&
+                                                                reservation.approvedAt) { %>
+                                                                <div class="text-muted small">Confirmed on <%=
+                                                                        reservation.approvedAt.toLocaleString() %>
+                                                                </div>
+                                                                <% } %>
+                                                                    <% if (reservation.status==='cancelled' &&
+                                                                        reservation.cancelledAt) { %>
+                                                                        <div class="text-muted small">Cancelled on <%=
+                                                                                reservation.cancelledAt.toLocaleString()
+                                                                                %>
+                                                                        </div>
+                                                                        <% } %>
+                                                        </td>
+
+
+                                                    </tr>
+                                                    <% }); %>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <% } else { %>
+                                <div class="alert alert-info">
+                                  Start exploring our Website!
+                                </div>
+                                <% } %>
+
+
+
+                                    <div class="map-section">
+                                        <h3><i class="fas fa-map-marked-alt"></i> Location</h3>
+                                        <iframe
+                                            src="https://maps.google.com/maps?q=<%= listing.location %>&output=embed"
+                                            width="100%" height="300" style="border:0; border-radius: 8px;"
+                                            allowfullscreen></iframe>
+                                        <p><i class="fas fa-info-circle"></i> The phone number and other details will be
+                                            provided after reservation.</p>
+                                    </div>
+            </div>
+
+            <div class="reservation-card ">
+                <div class=" mt-5">
+                    <div class="price">₹<%= listing.price.toLocaleString("en-IN") %> <span>/ night</span></div>
+                    <form action="/listings/<%= listing._id %>/reservations" method="POST">
+                        <div class="mb-3">
+                            <label>Check-in</label>
+                            <input type="date" name="checkin" class="form-control" required
+                                min="<%= new Date().toISOString().split('T')[0] %>">
+                        </div>
+                        <div class="mb-3">
+                            <label>Checkout</label>
+                            <input type="date" name="checkout" class="form-control" required
+                                min="<%= new Date(Date.now() + 86400000).toISOString().split('T')[0] %>">
+                        </div>
+                        <div class="mb-3">
+                            <label>Guests</label>
+                            <select name="guests" class="form-select" required>
+                                <% for(let i=1; i <=5; i++) { %>
+                                    <option value="<%= i %>">
+                                        <%= i %> guest<%= i> 1 ? 's' : '' %>
+                                    </option>
+                                    <% } %>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-dark w-100">Reserve Now</button>
+                        <p class="mt-2"><i class="fas fa-shield-alt"></i> Free cancellation for 48 hours</p>
+                    </form>
+                </div>
             </div>
         </div>
-
-        <div class="reservation-card">
-            <div class=" mt-5">
-            <div class="price">₹<%= listing.price.toLocaleString("en-IN") %> <span>/ night</span></div>
-            <form action="/listings/<%= listing._id %>/reservations" method="POST">
-                <div class="mb-3">
-                    <label>Check-in</label>
-                    <input type="date" name="checkin" class="form-control" required>
-                </div>
-                <div class="mb-3">
-                    <label>Checkout</label>
-                    <input type="date" name="checkout" class="form-control" required>
-                </div>
-                <div class="mb-3">
-                    <label>Guests</label>
-                    <select name="guests" class="form-select" required>
-                        <% for(let i=1; i <=5; i++) { %>
-                            <option value="<%= i %>"><%= i %> guest<%= i > 1 ? 's' : '' %></option>
-                        <% } %>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-dark w-100">Reserve Now</button>
-                <p class="mt-2"><i class="fas fa-shield-alt"></i> Free cancellation for 48 hours</p>
-            </form>
-        </div>
-        </div>
     </div>
-</div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const today = new Date();
-        const tomorrow = new Date(today);
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        document.querySelector('input[name="checkin"]').valueAsDate = today;
-        document.querySelector('input[name="checkout"]').valueAsDate = tomorrow;
-    });
-</script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            document.querySelector('input[name="checkin"]').valueAsDate = today;
+            document.querySelector('input[name="checkout"]').valueAsDate = tomorrow;
+        });
+    </script>

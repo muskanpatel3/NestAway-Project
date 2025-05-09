@@ -17,16 +17,27 @@ router.post('/',
     wrapAsync(reservationsController.createReservation));
 
 // POST /listings/:id/reservations/:reservationId/approve
-router.post('/:reservationId/approve', 
+// router.post('/:reservationId/approve', 
+//     isLoggedIn, 
+//     isOwner, 
+//     wrapAsync(reservationsController.approveReservation)
+// );
+
+// POST /listings/:id/reservations/:reservationId/toggle-status
+router.post('/:reservationId/toggle-status', 
     isLoggedIn, 
     isOwner, 
-    wrapAsync(reservationsController.approveReservation)
+    wrapAsync(reservationsController.toggleReservationStatus)
 );
 
+
 // GET /reservations/:id/invoice - Show reservation invoice
-router.get('/:id/invoicePage', 
-    isLoggedIn,  
-    wrapAsync(reservationsController.showInvoice));
+// In your routes file (e.g., routes/reservations.js)
+router.get('/:id/invoice', 
+  isLoggedIn, 
+  wrapAsync(reservationsController.showInvoice)
+);
+
 
 
 module.exports = router;

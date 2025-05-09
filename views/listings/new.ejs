@@ -40,7 +40,7 @@
             <div class="row">
                 <div class="mb-3 col-md-4">
                     <label for="price" class="form-label">Price</label>
-                    <input name="listing[price]" placeholder="1200" class="form-control" required>
+                    <input name="listing[price]"  type="number"  placeholder="1200" class="form-control" required>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
@@ -48,7 +48,7 @@
                 </div>
                 <div class="mb-3 col-md-8">
                     <label for="country" class="form-label">Country</label>
-                    <input name="listing[country]" placeholder="India" type="text" class="form-control" required>
+                    <input name="listing[country]" placeholder="India" type="text"  pattern="[A-Za-z\s]+"  class="form-control" required>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
@@ -96,12 +96,13 @@
             </div>
             <div class="mb-3">
                 <label for="phone" class="form-label">phone</label>
-                <input name="listing[phone]" placeholder="add a catchy phone" type="text" class="form-control" required>
+                <input name="listing[phone]" placeholder="add phone number" type="tel" 
+                     pattern="[6-9][0-9]{9}"  class="form-control" required>
                 <div class="valid-feedback">
                     Looks good!
                 </div>
                 <div class="invalid-feedback">
-                    Please enter a phone.
+                    Please enter a valid number.
                 </div>
             </div>
             

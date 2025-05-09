@@ -40,10 +40,11 @@
 
                     <div class="mb-3 col-md-8">
                         <label for="country" class="form-label">Country</label>
-                        <input name="listing[country]" value="<%=listing.country %>" type="text" class="form-control"
+                        <input name="listing[country]" value="<%=listing.country %>" type="text"  pattern="[A-Za-z\s]+" class="form-control"
                             required>
                         <div class="invalid-feedback"> enter valid country</div>
                     </div>
+                    
 
                 </div>
                 <div class="mb-3">
@@ -75,7 +76,8 @@
                 </div>
                 <div class="mb-3">
                     <label for="phone" class="form-label">Phone</label>
-                    <input name="listing[phone]" value="<%= listing.phone %>" type="text" class="form-control" required>
+                    <input name="listing[phone]" value="<%= listing.phone %>" type="tel" 
+                     pattern="[6-9][0-9]{9}" class="form-control" required>
                     <div class="invalid-feedback">Please enter a valid phone number</div>
                 </div>
 

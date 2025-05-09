@@ -9,7 +9,7 @@ body {
     flex: 1;
 }
 
-/* navbar */
+/*-------------------------- navbar -------------------------*/
 .navbar {
     height: 4.5rem;
     background-color: white;
@@ -20,45 +20,157 @@ body {
     font-size: 2rem;
 }
 
-.nav-link {
-    color: #222222 !important;
-}
+  /* Search Button Styles */
+  .search-btn {
+    background-color: #2a9d8f !important;
+    color: white;
+    border-radius: 25px;
+    padding: 0 1rem 0 1rem;
+  }
 
-/* footer */
-.f-info-links a {
+  .search-btn:hover {
+    background-color: #2a9d8f !important;
+    color: white;
+  }
+
+  .search-btn i {
+    display: inline !important;
+    margin-right: 0.5rem;
+  }
+
+  .search-input {
+    border-radius: 25px;
+    padding: 0.5rem 3rem 0.5rem 3rem;
+    font-size: 1rem;
+  }
+
+  /* StayAway Branding Styles */
+  .navbar-brand {
+    font-size: 1.8rem !important;
+    font-weight: 700 !important;
+    color: #2a9d8f !important;
     text-decoration: none;
-    color: #222222;
-}
-
-.f-info-links a:hover {
-    text-decoration: underline;
-}
-
-.f-info-links,
-.f-info-socials,
-.f-info-brand {
-    width: 100%;
-    /* vertical-align: middle; */
     display: flex;
     align-items: center;
-    justify-content: center;
-}
+  }
 
-.f-info-socials i {
-    margin-right: 1rem;
-    font-size: 1.2rem;
-}
+  .navbar-brand i {
+    margin-right: 10px;
+    color: #e9c46a !important;
+  }
 
-.f-info {
-    text-align: center;
-    height: 6rem;
-    background-color: #ebebeb;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: space-evenly;
-}
+  .navbar-brand:hover {
+    color: #21867a !important;
+  }
 
+  /* Nav Link Hover Effect */
+  .nav-link {
+    position: relative;
+    color: #021412 !important;
+  }
+
+
+  /* Active Nav Link */
+  .nav-link.active {
+    color: #2a9d8f !important;
+    font-weight: 600;
+  }
+
+  /*--------------footer--------------------- */
+      /* Footer Styles */
+    .footer {
+        background-color: var(--secondary);
+        color: white;
+        padding: 60px 0 20px;
+    }
+    
+    .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 40px;
+        margin-bottom: 40px;
+    }
+    
+    .footer-col h3 {
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+        position: relative;
+        padding-bottom: 10px;
+    }
+    
+    .footer-col h3:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 40px;
+        height: 2px;
+        background: var(--accent);
+    }
+    
+    .footer-links {
+        list-style: none;
+    }
+    
+    .footer-links li {
+        margin-bottom: 10px;
+    }
+    
+    .footer-links a {
+        color: #ddd;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+    
+    .footer-links a:hover {
+        color: var(--accent);
+    }
+    
+    .social-links {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+    }
+    
+    .social-links a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        color: white;
+        transition: all 0.3s ease;
+    }
+    
+    .social-links a:hover {
+        background: var(--accent);
+        color: var(--secondary);
+        transform: translateY(-3px);
+    }
+    
+    .footer-bottom {
+        text-align: center;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 0.9rem;
+        opacity: 0.8;
+    }
+
+    /* Make sure these variables are defined in your CSS */
+    :root {
+        --primary: #2a9d8f;
+        --secondary: #264653;
+        --accent: #e9c46a;
+        --light: #f8f9fa;
+        --dark: #343a40;
+    }
+
+
+
+
+/* -------listings--------------------------------------------------- */
 .listing-card {
     border: none !important;
     margin-bottom: 2rem;

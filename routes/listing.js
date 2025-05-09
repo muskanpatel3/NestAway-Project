@@ -41,7 +41,7 @@ router.get("/:id/edit",
     isOwner,
     wrapAsync(listingController.renderEditForm));
 
-
+// admin delete
 router.delete("/:id", 
     isLoggedIn, 
     isAdmin, 

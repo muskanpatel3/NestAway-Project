@@ -73,7 +73,32 @@ module.exports.getAllReservations = async (req, res) => {
 };
 
 
-module.exports.approveReservation = async (req, res) => {
+// module.exports.approveReservation = async (req, res) => {
+//     try {
+//         const { id, reservationId } = req.params;
+        
+//         const reservation = await Reservation.findById(reservationId);
+//         if (!reservation) {
+//             req.flash('error', 'Reservation not found');
+//             return res.redirect(`/listings/${id}`);
+//         }
+
+//         // Update reservation status
+//         reservation.status = 'confirmed';
+//         reservation.approvedBy = req.user._id;
+//         reservation.approvedAt = new Date();
+//         await reservation.save();
+
+//         req.flash('success', 'Reservation approved successfully');
+//         res.redirect(`/listings/${id}`);
+//     } catch (err) {
+//         console.error('Approval Error:', err);
+//         req.flash('error', 'Failed to approve reservation');
+//         res.redirect(`/listings/${id}`);
+//     }
+// };
+
+module.exports.toggleReservationStatus = async (req, res) => {
     try {
         const { id, reservationId } = req.params;
         
@@ -83,56 +108,46 @@ module.exports.approveReservation = async (req, res) => {
             return res.redirect(`/listings/${id}`);
         }
 
-        // Update reservation status
-        reservation.status = 'confirmed';
-        reservation.approvedBy = req.user._id;
-        reservation.approvedAt = new Date();
+        // 3-state toggle logic
+        if (reservation.status === 'pending') {
+            // Pending → Confirmed
+            reservation.status = 'confirmed';
+            reservation.approvedBy = req.user._id;
+            reservation.approvedAt = new Date();
+            // Clear any previous cancellation
+            reservation.cancelledBy = undefined;
+            reservation.cancelledAt = undefined;
+        } 
+        else if (reservation.status === 'confirmed') {
+            // Confirmed → Cancelled
+            reservation.status = 'cancelled';
+            reservation.cancelledBy = req.user._id;
+            reservation.cancelledAt = new Date();
+            // Keep approval info for history
+        }
+        else {
+            // Cancelled → Pending
+            reservation.status = 'pending';
+            // Clear all status metadata
+            reservation.approvedBy = undefined;
+            reservation.approvedAt = undefined;
+            reservation.cancelledBy = undefined;
+            reservation.cancelledAt = undefined;
+        }
+        
         await reservation.save();
 
-        req.flash('success', 'Reservation approved successfully');
+        req.flash('success', `Reservation status updated to ${reservation.status}`);
         res.redirect(`/listings/${id}`);
     } catch (err) {
-        console.error('Approval Error:', err);
-        req.flash('error', 'Failed to approve reservation');
+        console.error('Status Toggle Error:', err);
+        req.flash('error', 'Failed to update reservation status');
         res.redirect(`/listings/${id}`);
     }
 };
 
 
 module.exports.showInvoice = async (req, res) => {
-    try {
-      const { id } = req.params;
-      
-      const reservation = await Reservation.findById(id)
-        .populate('user')
-        .populate({
-          path: 'listing',
-          populate: { path: 'owner' }
-        });
-  
-      if (!reservation) {
-        req.flash('error', 'Reservation not found');
-        return res.redirect('/listings');
-      }
-  
-      // Calculate additional invoice details
-      const nights = Math.ceil((reservation.checkout - reservation.checkin) / (1000 * 60 * 60 * 24));
-      const taxRate = 0.18;
-      const taxAmount = reservation.totalPrice * taxRate;
-      const grandTotal = reservation.totalPrice + taxAmount;
-  
-      res.render('reservations/invoice', { 
-        reservation,
-        nights,
-        taxRate,
-        taxAmount, 
-        grandTotal,
-        currentDate: new Date().toLocaleDateString()
-      });
-  
-    } catch (err) {
-      console.error('Error fetching invoice:', err);
-      req.flash('error', 'Failed to generate invoice');
-      res.redirect('/listings');
-    }
-  };
+  const reservation = await Reservation.findById(req.params.id); // Must use `req.params.id`
+  res.render('invoice', { reservation });
+};
