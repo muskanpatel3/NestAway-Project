@@ -3,443 +3,500 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StayAway - Your Perfect Getaway</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>StayAway - Vacation Rentals</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Global Styles */
         :root {
             --primary: #2a9d8f;
+            --primary-dark: #21867a;
             --secondary: #264653;
             --accent: #e9c46a;
-            --light: #f8f9fa;
-            --dark: #343a40;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --light: #ffffff;
+            --dark: #333333;
+            --darker: #1a1a1a;
         }
         
         body {
-            background-color: var(--light);
+            font-family: 'Poppins', sans-serif;
             color: var(--dark);
-            line-height: 1.6;
         }
         
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        /* Navbar */
+        .navbar {
+            background-color: var(--light) !important;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            padding: 0.8rem 0;
         }
         
-        .btn {
-            display: inline-block;
-            background: var(--primary);
-            color: white;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            text-decoration: none;
-            font-weight: 600;
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary) !important;
+            font-size: 1.8rem;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(42, 157, 143, 0.3);
         }
         
-        .btn:hover {
-            background: #21867a;
+        .navbar-brand:hover {
+            color: var(--primary-dark) !important;
+            transform: scale(1.02);
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            padding: 0.5rem 1rem !important;
+            transition: all 0.3s ease;
+            color: var(--dark) !important;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary) !important;
+            transform: translateY(-2px);
+        }
+        
+        .search-input {
+            border-radius: 30px;
+            padding: 10px 20px;
+            border: 1px solid #ddd;
+            transition: all 0.3s ease;
+            width: 300px;
+        }
+        
+        .search-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 0.25rem rgba(42, 157, 143, 0.25);
+        }
+        
+        .search-btn {
+            background-color: var(--primary);
+            color: white;
+            border-radius: 30px;
+            padding: 10px 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        
+        .search-btn:hover {
+            background-color: var(--primary-dark);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(42, 157, 143, 0.3);
+        }
+        
+        /* Hero Section */
+      .hero-section {
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
+                url('/image/hero.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 85vh;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+}
+
+        
+        .hero-content h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 2.5rem;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+        
+        .hero-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .hero-btn:hover {
+            background-color: var(--primary-dark);
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(42, 157, 143, 0.4);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            color: white;
         }
         
-        .btn-accent {
-            background: var(--accent);
-            color: var(--secondary);
-            box-shadow: 0 4px 15px rgba(233, 196, 106, 0.3);
+        /* Filters */
+        #filters {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            padding: 1.5rem 0;
+            margin: 3rem 0;
+            border-bottom: 1px solid #eee;
         }
         
-        .btn-accent:hover {
-            background: #e2b757;
-            box-shadow: 0 6px 20px rgba(233, 196, 106, 0.4);
-        }
-        
-        section {
-            padding: 80px 0;
-        }
-        
-        .section-title {
+        .filter {
             text-align: center;
-            margin-bottom: 60px;
-            color: var(--secondary);
-            font-size: 2.5rem;
+            margin: 0 2rem 1rem 0;
+            opacity: 0.8;
+            text-decoration: none;
+            color: var(--dark);
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .filter div i {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .filter:hover, .filter.active {
+            opacity: 1;
+            cursor: pointer;
+            transform: translateY(-3px);
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+        }
+        
+        .filter p {
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+        
+        /* Listings */
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: var(--darker);
             position: relative;
+            padding-bottom: 0.5rem;
         }
         
         .section-title:after {
             content: '';
-            display: block;
-            width: 80px;
-            height: 4px;
-            background: var(--accent);
-            margin: 15px auto;
-        }
-        
-        /* Navbar Styles */
-        .navbar {
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-        
-        .navbar.scrolled {
-            background-color: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        .navbar-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-        }
-        
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo i {
-            margin-right: 10px;
-            color: var(--accent);
-        }
-        
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-        
-        .nav-links li {
-            margin-left: 30px;
-        }
-        
-        .nav-links a {
-            color: var(--secondary);
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease;
-            position: relative;
-        }
-        
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-        
-        .nav-links a:after {
-            content: '';
             position: absolute;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            bottom: -5px;
             left: 0;
-            transition: width 0.3s ease;
+            bottom: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--primary);
         }
         
-        .nav-links a:hover:after {
-            width: 100%;
-        }
-        
-        .mobile-menu-btn {
-            display: none;
-            background: none;
+        .listing-card {
             border: none;
-            font-size: 1.5rem;
-            color: var(--secondary);
-            cursor: pointer;
-        }
-        
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
-            color: white;
-            display: flex;
-            align-items: center;
-            text-align: center;
-            padding-top: 80px;
-        }
-        
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-        
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            opacity: 0.9;
-        }
-        
-        .hero-btns {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 40px;
-        }
-        
-        /* Features Section */
-        .features {
-            background-color: white;
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
-        
-        .feature-card {
-            background: var(--light);
-            border-radius: 10px;
-            padding: 30px;
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .feature-icon {
-            font-size: 3rem;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-        
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--secondary);
-        }
-        
-        /* Destinations Section */
-        .destinations {
-            background-color: #f5f5f5;
-        }
-        
-        .destinations-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 30px;
-        }
-        
-        .destination-card {
-            background: white;
-            border-radius: 10px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
         }
         
-        .destination-card:hover {
+        .listing-card:hover {
             transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
         }
         
-        .destination-img {
+        .card-img-top {
             height: 250px;
-            overflow: hidden;
-        }
-        
-        .destination-img img {
-            width: 100%;
-            height: 100%;
             object-fit: cover;
             transition: transform 0.5s ease;
         }
         
-        .destination-card:hover .destination-img img {
-            transform: scale(1.1);
+        .listing-card:hover .card-img-top {
+            transform: scale(1.05);
         }
         
-        .destination-info {
-            padding: 25px;
+        .card-body {
+            padding: 1.5rem;
         }
         
-        .destination-info h3 {
-            font-size: 1.4rem;
-            margin-bottom: 10px;
-            color: var(--secondary);
+        .card-text {
+            margin-bottom: 0;
         }
         
-        .destination-info p {
-            margin-bottom: 15px;
-            color: #666;
+        .card-text b {
+            font-size: 1.1rem;
+            color: var(--darker);
         }
         
-        .destination-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 20px;
-        }
-        
-        .price {
-            font-weight: 700;
+        .card-text .price {
             color: var(--primary);
+            font-weight: 600;
             font-size: 1.2rem;
         }
         
-        .rating {
-            color: var(--accent);
-        }
-        
-        /* Testimonials Section */
-        .testimonials {
-            background-color: var(--secondary);
-            color: white;
-        }
-        
-        .testimonials .section-title {
-            color: white;
-        }
-        
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .testimonial-card {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 30px;
-            border-radius: 10px;
-            position: relative;
-        }
-        
-        .testimonial-card:before {
-            content: '"';
-            font-size: 5rem;
-            position: absolute;
-            top: 10px;
-            left: 20px;
-            color: rgba(255, 255, 255, 0.1);
-            font-family: serif;
-            line-height: 1;
-        }
-        
-        .testimonial-text {
-            margin-bottom: 20px;
-            font-style: italic;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-        }
-        
-        .author-img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
+        /* Experience Cards */
+        .experience-card {
+            border: none;
+            border-radius: 12px;
             overflow: hidden;
-            margin-right: 15px;
-        }
-        
-        .author-img img {
-            width: 100%;
+            transition: all 0.3s ease;
             height: 100%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .experience-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .experience-card .card-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--darker);
+        }
+        
+        .experience-card .btn {
+            background-color: var(--primary);
+            color: white;
+            border-radius: 30px;
+            padding: 8px 20px;
+            font-weight: 500;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        
+        .experience-card .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(42, 157, 143, 0.3);
+        }
+        
+        /* Popular Destinations Section */
+        .destinations-section {
+            background-color: #f9f9f9;
+            padding: 5rem 0;
+        }
+        
+        .destination-card {
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            height: 300px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .destination-card img {
+            height: 100%;
+            width: 100%;
             object-fit: cover;
+            transition: transform 0.5s ease;
         }
         
-        .author-info h4 {
-            margin-bottom: 5px;
+        .destination-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
         }
         
-        .author-info p {
+        .destination-card:hover img {
+            transform: scale(1.05);
+        }
+        
+        .destination-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            padding: 2rem 1.5rem 1.5rem;
+            color: white;
+        }
+        
+        .destination-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .destination-properties {
             font-size: 0.9rem;
-            opacity: 0.8;
+            opacity: 0.9;
         }
         
         /* Newsletter Section */
-        .newsletter {
-            background-color: var(--primary);
+        .newsletter-section {
+            background-color: var(--secondary);
             color: white;
+            padding: 4rem 0;
+        }
+        
+        .newsletter-container {
+            max-width: 800px;
+            margin: 0 auto;
             text-align: center;
         }
         
-        .newsletter .section-title {
-            color: white;
+        .newsletter-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .newsletter-text {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
         }
         
         .newsletter-form {
-            max-width: 600px;
-            margin: 0 auto;
             display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
         }
         
-        .newsletter-form input {
+        .newsletter-input {
             flex: 1;
-            padding: 15px 20px;
+            min-width: 250px;
+            padding: 12px 20px;
+            border-radius: 30px;
             border: none;
-            border-radius: 30px 0 0 30px;
             font-size: 1rem;
-            outline: none;
         }
         
-        .newsletter-form button {
-            padding: 15px 30px;
-            background: var(--accent);
-            color: var(--secondary);
+        .newsletter-btn {
+            background-color: var(--primary);
+            color: white;
             border: none;
-            border-radius: 0 30px 30px 0;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.3s ease;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
         }
         
-        .newsletter-form button:hover {
-            background: #e2b757;
+        .newsletter-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(42, 157, 143, 0.3);
+        }
+        
+        /* Review Section */
+        .review-section {
+            background-color: var(--light);
+            padding: 5rem 0;
+        }
+        
+        .review-card {
+            border: none;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            height: 100%;
+            background: white;
+        }
+        
+        .review-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .user-img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+        }
+        
+        .user-name {
+            font-weight: 600;
+            color: var(--darker);
+            margin-bottom: 0.2rem;
+        }
+        
+        .user-location {
+            font-size: 0.85rem;
+            color: #777;
+        }
+        
+        .review-text {
+            font-style: italic;
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .stars {
+            color: #FFC107;
+            font-size: 1.1rem;
+        }
+        
+        /* Contact Section */
+        .contact-section {
+            padding: 5rem 0 3rem;
+        }
+        
+        .info-item {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .info-item:hover {
+            background-color: rgba(42, 157, 143, 0.05);
+            transform: translateX(5px);
+        }
+        
+        .info-item i {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-right: 1.5rem;
+            width: 40px;
+            text-align: center;
+        }
+        
+        .info-item h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--darker);
+            margin-bottom: 0.5rem;
+        }
+        
+        .info-item p {
+            margin-bottom: 0;
+            color: #666;
+        }
+        
+        #map {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            height: 400px;
         }
         
         /* Footer */
         .footer {
             background-color: var(--secondary);
             color: white;
-            padding: 60px 0 20px;
+            padding: 5rem 0 2rem;
         }
         
         .footer-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
         }
         
         .footer-col h3 {
-            font-size: 1.3rem;
-            margin-bottom: 20px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
             position: relative;
-            padding-bottom: 10px;
+            padding-bottom: 0.8rem;
         }
         
         .footer-col h3:after {
@@ -447,33 +504,49 @@
             position: absolute;
             left: 0;
             bottom: 0;
-            width: 40px;
-            height: 2px;
-            background: var(--accent);
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+        }
+        
+        .footer-col p {
+            color: #bbb;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
         }
         
         .footer-links {
             list-style: none;
+            padding-left: 0;
         }
         
         .footer-links li {
-            margin-bottom: 10px;
+            margin-bottom: 0.8rem;
         }
         
         .footer-links a {
-            color: #ddd;
+            color: #bbb;
             text-decoration: none;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
+            display: inline-block;
         }
         
         .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .footer-links i {
+            margin-right: 0.8rem;
             color: var(--accent);
+            width: 20px;
+            text-align: center;
         }
         
         .social-links {
             display: flex;
             gap: 15px;
-            margin-top: 20px;
+            margin-top: 1.5rem;
         }
         
         .social-links a {
@@ -486,309 +559,390 @@
             border-radius: 50%;
             color: white;
             transition: all 0.3s ease;
+            font-size: 1.1rem;
         }
         
         .social-links a:hover {
-            background: var(--accent);
-            color: var(--secondary);
-            transform: translateY(-3px);
+            background: var(--primary);
+            color: white;
+            transform: translateY(-5px);
         }
         
         .footer-bottom {
             text-align: center;
-            padding-top: 20px;
+            padding-top: 2rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             font-size: 0.9rem;
-            opacity: 0.8;
+            color: #999;
         }
         
-        /* Responsive Styles */
+        .footer-bottom a {
+            color: #bbb;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-bottom a:hover {
+            color: var(--accent);
+        }
+        
+        /* Responsive Adjustments */
         @media (max-width: 992px) {
-            .hero h1 {
+            .hero-content h1 {
                 font-size: 3rem;
             }
             
-            .section-title {
-                font-size: 2.2rem;
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+            
+            .search-input {
+                width: 250px;
             }
         }
         
         @media (max-width: 768px) {
-            .mobile-menu-btn {
-                display: block;
+            .navbar-brand {
+                font-size: 1.5rem;
             }
             
-            .nav-links {
-                position: fixed;
-                top: 80px;
-                left: -100%;
-                width: 100%;
-                height: calc(100vh - 80px);
-                background: white;
-                flex-direction: column;
-                align-items: center;
-                padding-top: 40px;
-                transition: left 0.3s ease;
+            .hero-section {
+                height: 70vh;
             }
             
-            .nav-links.active {
-                left: 0;
-            }
-            
-            .nav-links li {
-                margin: 15px 0;
-            }
-            
-            .hero h1 {
+            .hero-content h1 {
                 font-size: 2.5rem;
             }
             
-            .hero-btns {
-                flex-direction: column;
-                align-items: center;
+            .hero-content p {
+                font-size: 1.1rem;
+            }
+            
+            .hero-btn {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+            
+            .search-input {
+                width: 100%;
+                margin-bottom: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero-section {
+                height: 60vh;
+            }
+            
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            
+            .filter {
+                margin: 0 1rem 1rem 0;
+            }
+            
+            .filter div i {
+                font-size: 1.5rem;
             }
             
             .newsletter-form {
                 flex-direction: column;
             }
             
-            .newsletter-form input {
-                border-radius: 30px;
-                margin-bottom: 10px;
-            }
-            
-            .newsletter-form button {
-                border-radius: 30px;
+            .newsletter-input, .newsletter-btn {
                 width: 100%;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .section-title {
-                font-size: 1.8rem;
-            }
-            
-            section {
-                padding: 60px 0;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="container navbar-container">
-            <a href="#" class="logo">
-                <i class="fas fa-umbrella-beach"></i>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="/listings">
+                <i class="fas fa-umbrella-beach me-2"></i>
                 StayAway
             </a>
-            
-            <button class="mobile-menu-btn">
-                <i class="fas fa-bars"></i>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
+                <span class="navbar-toggler-icon"></span>
             </button>
             
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#destinations">Destinations</a></li>
-                <li><a href="#testimonials">Testimonials</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav ms-auto mt-3 mt-lg-0">
+                    <form class="d-flex flex-column flex-lg-row" role="search" action="/listings" method="GET">
+                        <input class="form-control me-lg-2 search-input" name="search" type="search" placeholder="Search destination">
+                        <button class="btn search-btn mt-2 mt-lg-0" type="submit"> 
+                            <i class="fa-solid fa-magnifying-glass me-2"></i> Search
+                        </button>
+                    </form>
+                </div>
+
+                <div class="navbar-nav ms-lg-4">
+                    <a class="nav-link" href="/listings"><b>Explore</b></a>
+                    <a class="nav-link" href="/listings/new"><b>List Your Property</b></a>
+                    <a class="nav-link" href="/signup"><b>Sign up</b></a>
+                    <a class="nav-link" href="/login"><b>Login</b></a>
+                </div>
+            </div>
         </div>
     </nav>
-    
+
     <!-- Hero Section -->
-    <section class="hero" id="home">
+    <section href="/listings" class="hero-section">
+        <div class="container hero-content">
+            <h1>Discover Your Perfect Escape</h1>
+            <p>Find unique homes, experiences, and places around the world</p>
+            <a href="/listings" class="btn hero-btn">Explore Now</a>
+        </div>
+    </section>
+
+<!-- Main Content -->
+<div class="container">
+    <!-- Featured Listings -->
+    <h2 class="section-title mt-5">Featured Stays</h2>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <div class="col">
+            <a href="/listings" class="listing-link text-decoration-none">
+                <div class="card listing-card">
+                    <img src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Modern Apartment">
+                    <div class="card-body">
+                        <p class="card-text">
+                            <b>Luxury Villa with Ocean View</b> <br>
+                            <span class="price">&#8377; 15,000 /night</span>
+                        </p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        
+        <div class="col">
+            <a href="/listings" class="listing-link text-decoration-none">
+                <div class="card listing-card">
+                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Beach House">
+                    <div class="card-body">
+                        <p class="card-text">
+                            <b>Beachfront Villa with Pool</b> <br>
+                            <span class="price">&#8377; 12,000 /night</span>
+                        </p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        
+        <div class="col">
+            <a href="/listings" class="listing-link text-decoration-none">
+                <div class="card listing-card">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Mountain Cabin">
+                    <div class="card-body">
+                        <p class="card-text">
+                            <b>Cozy Mountain Cabin</b> <br>
+                            <span class="price">&#8377; 7,500 /night</span>
+                        </p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Experience Section -->
+    <h2 class="section-title mt-5">Unique Experiences</h2>
+    <div class="row g-4">
+        <div class="col-md-6">
+            <a href="/listings" class="text-decoration-none">
+                <div class="card experience-card">
+                    <img src="https://images.unsplash.com/photo-1503917988258-f87a78e3c995?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Cooking Class">
+                    <div class="card-body">
+                        <h5 class="card-title">Local Cooking Class</h5>
+                        <p class="card-text">Learn to cook authentic dishes with local chefs in their homes. Experience the true flavors of the region.</p>
+                        <span class="btn">Book Experience</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-6">
+            <a href="/listings" class="text-decoration-none">
+                <div class="card experience-card">
+                    <img src="https://images.unsplash.com/photo-1533107862482-0e6974b06ec4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Hiking Tour">
+                    <div class="card-body">
+                        <h5 class="card-title">Guided Hiking Tour</h5>
+                        <p class="card-text">Explore hidden trails with experienced local guides. Discover breathtaking views and secret spots.</p>
+                        <span class="btn">Book Experience</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Popular Destinations Section -->
+<section class="destinations-section">
+    <div class="container">
+        <h2 class="section-title text-center">Popular Destinations</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <a href="/listings" class="text-decoration-none">
+                    <div class="destination-card">
+                        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Goa beaches">
+                        <div class="destination-overlay">
+                            <h3 class="destination-title">Goa</h3>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="/listings" class="text-decoration-none">
+                    <div class="destination-card">
+                        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Goa beaches">
+                        <div class="destination-overlay">
+                            <h3 class="destination-title">Goa</h3>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="/listings" class="text-decoration-none">
+                    <div class="destination-card">
+                        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Goa beaches">
+                        <div class="destination-overlay">
+                            <h3 class="destination-title">Goa</h3>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+   
+
+    <!-- Review Section -->
+    <div class="review-section">
         <div class="container">
-            <div class="hero-content">
-                <h1>Discover Your Perfect Getaway</h1>
-                <p>Escape to breathtaking destinations with StayAway. Find exclusive deals on luxury villas, cozy cabins, and unique stays around the world.</p>
-                <div class="hero-btns">
-                    <a href="#" class="btn">Explore Now</a>
-                    <a href="#" class="btn btn-accent">Special Offers</a>
+            <h2 class="section-title text-center">What Our Guests Say</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="review-card">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="https://randomuser.me/api/portraits/women/32.jpg" class="rounded-circle user-img me-3" alt="User Image">
+                            <div>
+                                <h6 class="user-name mb-0">Anjali Sharma</h6>
+                                <small class="user-location">Stayed in Mountain Cabin</small>
+                            </div>
+                        </div>
+                        <p class="review-text">"The mountain cabin stay was magical. Waking up to those breathtaking views was unforgettable. The cabin had everything we needed and the host was incredibly welcoming."</p>
+                        <div class="stars mt-3">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="review-card">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="https://randomuser.me/api/portraits/men/75.jpg" class="rounded-circle user-img me-3" alt="User Image">
+                            <div>
+                                <h6 class="user-name mb-0">Rohan Verma</h6>
+                                <small class="user-location">Stayed in Beachfront Villa</small>
+                            </div>
+                        </div>
+                        <p class="review-text">"The beach villa exceeded all expectations. The infinity pool overlooking the ocean was spectacular. The staff was attentive and made our anniversary truly special."</p>
+                        <div class="stars mt-3">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="review-card">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" class="rounded-circle user-img me-3" alt="User Image">
+                            <div>
+                                <h6 class="user-name mb-0">Priya Patel</h6>
+                                <small class="user-location">Joined Cooking Class</small>
+                            </div>
+                        </div>
+                        <p class="review-text">"The cooking class was the highlight of our trip! We learned authentic recipes and techniques while enjoying wonderful company. Can't wait to recreate these dishes at home."</p>
+                        <div class="stars mt-3">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
-    
-    <!-- Features Section -->
-    <section class="features" id="features">
+    </div>
+
+    <!-- Contact Section -->
+    <div class="contact-section">
         <div class="container">
-            <h2 class="section-title">Why Choose StayAway</h2>
-            
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-map-marked-alt"></i>
+            <div class="row gy-4">
+                <div class="col-lg-5">
+                    <h2 class="section-title">Contact Details</h2>
+                    <div class="info-item d-flex">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <div>
+                            <h3>Location</h3>
+                            <p>123 Travel Street, Goa, India</p>
+                        </div>
                     </div>
-                    <h3>Unique Locations</h3>
-                    <p>Discover hidden gems and off-the-beaten-path destinations you won't find anywhere else.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-home"></i>
+                    <div class="info-item d-flex">
+                        <i class="fa-solid fa-clock"></i>
+                        <div>
+                            <h3>Reception Hours</h3>
+                            <p>Monday-Saturday:<br>9:00 AM - 8:00 PM</p>
+                        </div>
                     </div>
-                    <h3>Curated Stays</h3>
-                    <p>Each property is personally vetted to ensure quality, comfort, and authenticity.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-headset"></i>
+                    <div class="info-item d-flex">
+                        <i class="fa-solid fa-phone"></i>
+                        <div>
+                            <h3>Call Us</h3>
+                            <p>+91 9876543210</p>
+                        </div>
                     </div>
-                    <h3>24/7 Support</h3>
-                    <p>Our dedicated team is available around the clock to assist with your travel needs.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Destinations Section -->
-    <section class="destinations" id="destinations">
-        <div class="container">
-            <h2 class="section-title">Featured Destinations</h2>
-            
-            <div class="destinations-grid">
-                <div class="destination-card">
-                    <div class="destination-img">
-                        <img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Beach Villa">
-                    </div>
-                    <div class="destination-info">
-                        <h3>Oceanview Villa, Bali</h3>
-                        <p>Wake up to the sound of waves in this luxurious beachfront property with private pool.</p>
-                        <div class="destination-meta">
-                            <span class="price">$299/night</span>
-                            <span class="rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </span>
+                    <div class="info-item d-flex">
+                        <i class="fa-solid fa-envelope"></i>
+                        <div>
+                            <h3>Email Us</h3>
+                            <p>hello@stayaway.com</p>
                         </div>
                     </div>
                 </div>
-                
-                <div class="destination-card">
-                    <div class="destination-img">
-                        <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Mountain Cabin">
-                    </div>
-                    <div class="destination-info">
-                        <h3>Alpine Cabin, Switzerland</h3>
-                        <p>Cozy wooden cabin with stunning mountain views and direct access to ski slopes.</p>
-                        <div class="destination-meta">
-                            <span class="price">$189/night</span>
-                            <span class="rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="destination-card">
-                    <div class="destination-img">
-                        <img src="https://images.unsplash.com/photo-1535827841776-24afc1e255ac?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Desert Oasis">
-                    </div>
-                    <div class="destination-info">
-                        <h3>Desert Oasis, Morocco</h3>
-                        <p>Experience traditional Berber hospitality in this luxurious desert camp under the stars.</p>
-                        <div class="destination-meta">
-                            <span class="price">$159/night</span>
-                            <span class="rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div style="text-align: center; margin-top: 40px;">
-                <a href="#" class="btn">View All Destinations</a>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Testimonials Section -->
-    <section class="testimonials" id="testimonials">
-        <div class="container">
-            <h2 class="section-title">What Our Guests Say</h2>
-            
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <p class="testimonial-text">Our stay through StayAway was absolutely perfect. The villa exceeded our expectations and the local recommendations were spot on. We'll definitely be using StayAway for all our future trips!</p>
-                    <div class="testimonial-author">
-                        <div class="author-img">
-                            <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sarah J.">
-                        </div>
-                        <div class="author-info">
-                            <h4>Sarah Johnson</h4>
-                            <p>New York, USA</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial-card">
-                    <p class="testimonial-text">The attention to detail in the properties listed on StayAway is incredible. We felt like we were staying in a home rather than a rental. The booking process was seamless too.</p>
-                    <div class="testimonial-author">
-                        <div class="author-img">
-                            <img src="https://randomuser.me/api/portraits/men/54.jpg" alt="Michael T.">
-                        </div>
-                        <div class="author-info">
-                            <h4>Michael Thompson</h4>
-                            <p>London, UK</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial-card">
-                    <p class="testimonial-text">I've traveled extensively and StayAway offers some of the most unique accommodations I've ever seen. Their customer service is exceptional - they helped us when our flight was delayed.</p>
-                    <div class="testimonial-author">
-                        <div class="author-img">
-                            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Priya K.">
-                        </div>
-                        <div class="author-info">
-                            <h4>Priya Kapoor</h4>
-                            <p>Mumbai, India</p>
-                        </div>
+                <div class="col-lg-7">
+                    <h3 class="section-title mb-4">Visit Us Here</h3>
+                    <div id="map">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d61523.69298566505!2d73.74987999999999!3d15.490931500000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bbfba106336b741%3A0xeaf887f62a85c84c!2sGoa!5e0!3m2!1sen!2sin!4v1689760000000!5m2!1sen!2sin" 
+                            style="border:0; width: 100%; height: 100%;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    
-    <!-- Newsletter Section -->
-    <section class="newsletter" id="contact">
-        <div class="container">
-            <h2 class="section-title">Stay Updated</h2>
-            <p style="max-width: 600px; margin: 0 auto 30px;">Subscribe to our newsletter for exclusive deals, new destinations, and travel inspiration.</p>
-            
-            <form class="newsletter-form">
-                <input type="email" placeholder="Enter your email address" required>
-                <button type="submit">Subscribe</button>
-            </form>
-        </div>
-    </section>
-    
+    </div>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-col">
                     <h3>StayAway</h3>
-                    <p>Making your dream vacations a reality with carefully curated properties and exceptional service.</p>
+                    <p>Making your dream vacations a reality with carefully curated properties and exceptional service across the globe.</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
@@ -796,85 +950,43 @@
                         <a href="#"><i class="fab fa-pinterest"></i></a>
                     </div>
                 </div>
-                
-
-                
                 <div class="footer-col">
                     <h3>Destinations</h3>
                     <ul class="footer-links">
-                        <li><a href="#">Europe</a></li>
-                        <li><a href="#">Asia</a></li>
-                        <li><a href="#">North America</a></li>
-                        <li><a href="#">South America</a></li>
-                        <li><a href="#">Africa</a></li>
+                        <li><a href="#">Goa</a></li>
+                        <li><a href="#">Himachal</a></li>
+                        <li><a href="#">Kerala</a></li>
+                        <li><a href="#">Rajasthan</a></li>
+                        <li><a href="#">Uttarakhand</a></li>
                     </ul>
                 </div>
-                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Gift Cards</a></li>
+                    </ul>
+                </div>
                 <div class="footer-col">
                     <h3>Contact Us</h3>
                     <ul class="footer-links">
-                        <li><i class="fas fa-map-marker-alt"></i> 123 Travel St, Wanderlust City</li>
-                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Travel St, Goa, India</li>
+                        <li><i class="fas fa-phone"></i> +91 9876543210</li>
                         <li><i class="fas fa-envelope"></i> hello@stayaway.com</li>
+                        <li><i class="fas fa-headset"></i> 24/7 Customer Support</li>
                     </ul>
                 </div>
             </div>
-            
             <div class="footer-bottom">
-                <p>&copy; 2023 StayAway. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+                <p>&copy; 2023 StayAway. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a> | <a href="#">Sitemap</a></p>
             </div>
         </div>
     </footer>
-    
-    <script>
-        // Mobile Menu Toggle
-        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-        const navLinks = document.querySelector('.nav-links');
-        
-        mobileMenuBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-        
-        // Close mobile menu when clicking a link
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-            });
-        });
-        
-        // Navbar scroll effect
-        window.addEventListener('scroll', () => {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
-        
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
 
-  document.addEventListener("click", function () {
-    window.location.href = "/listings";
-  });
-
-
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

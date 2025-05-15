@@ -15,7 +15,7 @@ module.exports = {
             
             req.login(registeredUser, err => {
                 if (err) return next(err);
-                req.flash("success", "Welcome to Wanderlust!");
+                req.flash("success", "Welcome to StayAway!");
                 res.redirect("/listings");
             });
         } catch (e) {
@@ -29,7 +29,7 @@ module.exports = {
     },
 
     login: (req, res) => {
-        req.flash("success", "Welcome back to Wanderlust!");
+        req.flash("success", "Welcome back to StayAway!");
         const redirectUrl = res.locals.redirectUrl || "/listings";
         res.redirect(redirectUrl);
     },

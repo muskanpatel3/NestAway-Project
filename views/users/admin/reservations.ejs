@@ -1,0 +1,156 @@
+<% layout("layouts/boilerplate") %>
+
+<style>
+    .reservation-table {
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .reservation-table th {
+        background-color: #343a40;
+        color: white;
+        font-weight: 500;
+    }
+    
+    .reservation-table tr:hover {
+        background-color: rgba(0, 0, 0, 0.02);
+    }
+    
+    .status-badge {
+        font-size: 0.85rem;
+        padding: 0.35em 0.65em;
+        font-weight: 500;
+    }
+    
+    .search-box {
+        margin-bottom: 1.5rem;
+    }
+    
+    .action-buttons {
+        white-space: nowrap;
+    }
+</style>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="mb-4">Reservation Management</h1>
+            
+            <div class="card mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Filter Reservations</h5>
+                    <span class="badge bg-primary">Total Reservations: <%= reservations.length %></span>
+                </div>
+                <div class="card-body">
+                    <form action="/admin/reservations" method="GET">
+                        <div class="row g-3">
+                            <div class="col-md-3">
+                                <label for="status" class="form-label">Status</label>
+                                <select class="form-select" id="status" name="status">
+                                    <option value="">All Statuses</option>
+                                    <option value="pending" <%= status === 'pending' ? 'selected' : '' %>>Pending</option>
+                                    <option value="confirmed" <%= status === 'confirmed' ? 'selected' : '' %>>Confirmed</option>
+                                    <option value="cancelled" <%= status === 'cancelled' ? 'selected' : '' %>>Cancelled</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="startDate" class="form-label">From Date</label>
+                                <input type="date" class="form-control" id="startDate" name="startDate" value="<%= startDate %>">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="endDate" class="form-label">To Date</label>
+                                <input type="date" class="form-control" id="endDate" name="endDate" value="<%= endDate %>">
+                            </div>
+                            <div class="col-md-3 d-flex align-items-end">
+                                <button type="submit" class="btn btn-primary w-100">
+                                    <i class="fas fa-filter me-1"></i> Filter
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h5>All Reservations</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table reservation-table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Listing</th>
+                                    <th>User</th>
+                                    <th>Dates</th>
+                                    <th>Guests</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                    <th class="text-end">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% reservations.forEach(reservation => { %>
+                                <tr>
+                                    <td><%= reservation._id.toString().slice(-6) %></td>
+                                    <td>
+                                        <a href="/listings/<%= reservation.listing._id %>">
+                                            <%= reservation.listing.title %>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="/admin/users/<%= reservation.user._id %>">
+                                            <%= reservation.user.username %>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <%= new Date(reservation.startDate).toLocaleDateString() %> - 
+                                        <%= new Date(reservation.endDate).toLocaleDateString() %>
+                                    </td>
+                                    <td><%= reservation.guests %></td>
+                                    <td>₹<%= reservation.totalPrice %></td>
+                                    <td>
+                                        <span class="badge 
+                                            <%= reservation.status === 'confirmed' ? 'bg-success' : 
+                                                reservation.status === 'pending' ? 'bg-warning text-dark' : 
+                                                'bg-danger' %>">
+                                            <%= reservation.status.charAt(0).toUpperCase() + reservation.status.slice(1) %>
+                                        </span>
+                                    </td>
+                                    <td class="text-end action-buttons">
+                                        <% if(reservation.status === 'pending') { %>
+                                            <form action="/admin/reservations/<%= reservation._id %>/confirm" 
+                                                  method="POST" class="d-inline">
+                                                <button type="submit" class="btn btn-sm btn-success me-1">
+                                                    <i class="fas fa-check"></i> Confirm
+                                                </button>
+                                            </form>
+                                        <% } %>
+                                        <% if(reservation.status === 'confirmed') { %>
+                                            <form action="/admin/reservations/<%= reservation._id %>/cancel" 
+                                                  method="POST" class="d-inline">
+                                                <button type="submit" class="btn btn-sm btn-warning me-1">
+                                                    <i class="fas fa-times"></i> Cancel
+                                                </button>
+                                            </form>
+                                        <% } %>
+                                        <form action="/admin/reservations/<%= reservation._id %>?_method=DELETE" 
+                                              method="POST" class="d-inline">
+                                            <button type="submit" class="btn btn-sm btn-danger" 
+                                                onclick="return confirm('Are you sure you want to delete this reservation?')">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <% }); %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
