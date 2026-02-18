@@ -3,17 +3,15 @@ const Review = require("./models/review");
 const ExpressError = require("./utils/ExpressError.js");
 const { listingSchema, reviewSchema } = require("./schema.js");
 
-
 module.exports.isLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {
        
         req.session.redirectUrl = req.originalUrl;
-        req.flash("error", "you must be logged in to create listing!");
+        req.flash("error", "you must be logged in first!");
         return res.redirect("/login");
     }
     next();
 }
-
 
 module.exports.isAdmin = (req, res, next) => {
     if (req.user && req.user.isAdmin) {

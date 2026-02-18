@@ -1,2 +1,6 @@
 node_modules/
 .env
+.DS_Store        # macOS system files
+*.log            # log files
+coverage/        # test coverage reports
+dist/             # build folder

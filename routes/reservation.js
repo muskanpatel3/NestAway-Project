@@ -38,6 +38,23 @@ router.get('/:id/invoice',
   wrapAsync(reservationsController.showInvoice)
 );
 
+// Cancel reservation route
+router.post('/reservations/:id/cancel', async (req, res) => {
+    const { id } = req.params;
+    const reservation = await Reservation.findByIdAndUpdate(id, { 
+        status: 'cancelled',
+        cancelledAt: new Date()
+    });
+    req.flash('success', 'Reservation cancelled successfully');
+    res.redirect('back');
+});
 
+// Delete reservation route
+router.delete('/reservations/:id', async (req, res) => {
+    const { id } = req.params;
+    await Reservation.findByIdAndDelete(id);
+    req.flash('success', 'Reservation deleted successfully');
+    res.redirect('back');
+});
 
 module.exports = router;
