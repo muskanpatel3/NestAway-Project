@@ -1,6 +1,6 @@
 const Reservation = require('../models/reservation');
 const Listing = require('../models/listing');
-const wrapAsync = require('../utils/wrapAsync');  
+const wrapAsync = require('../utils/wrapAsync');
 
 
 module.exports.createReservation = async (req, res) => {
@@ -20,6 +20,7 @@ module.exports.createReservation = async (req, res) => {
             return res.redirect(`/listings/${id}`);
         }
 
+       
         // Calculate price
         const nights = Math.ceil((new Date(checkout) - new Date(checkin)) / (1000 * 60 * 60 * 24));
         const totalPrice = listing.price * nights;
@@ -28,7 +29,7 @@ module.exports.createReservation = async (req, res) => {
         const reservation = new Reservation({
             listingTitle: listing.title,
             listing: listing._id,
-            listingPhone: listing.phone,  
+            listingPhone: listing.phone,
             user: req.user._id,
             userName: req.user.username,
             userEmail: req.user.email,
@@ -61,10 +62,10 @@ module.exports.createReservation = async (req, res) => {
 module.exports.getAllReservations = async (req, res) => {
     try {
         const reservations = await Reservation.find({})
-            .populate('listing', 'title phone')  
+            .populate('listing', 'title phone')
             .populate('user', 'username email')
             .sort({ createdAt: -1 });
-            
+
         return reservations;
     } catch (err) {
         console.error('Error fetching reservations:', err);
@@ -76,7 +77,7 @@ module.exports.getAllReservations = async (req, res) => {
 // module.exports.approveReservation = async (req, res) => {
 //     try {
 //         const { id, reservationId } = req.params;
-        
+
 //         const reservation = await Reservation.findById(reservationId);
 //         if (!reservation) {
 //             req.flash('error', 'Reservation not found');
@@ -101,7 +102,7 @@ module.exports.getAllReservations = async (req, res) => {
 module.exports.toggleReservationStatus = async (req, res) => {
     try {
         const { id, reservationId } = req.params;
-        
+
         const reservation = await Reservation.findById(reservationId);
         if (!reservation) {
             req.flash('error', 'Reservation not found');
@@ -117,7 +118,7 @@ module.exports.toggleReservationStatus = async (req, res) => {
             // Clear any previous cancellation
             reservation.cancelledBy = undefined;
             reservation.cancelledAt = undefined;
-        } 
+        }
         else if (reservation.status === 'confirmed') {
             // Confirmed → Cancelled
             reservation.status = 'cancelled';
@@ -134,7 +135,7 @@ module.exports.toggleReservationStatus = async (req, res) => {
             reservation.cancelledBy = undefined;
             reservation.cancelledAt = undefined;
         }
-        
+
         await reservation.save();
 
         req.flash('success', `Reservation status updated to ${reservation.status}`);
@@ -148,6 +149,6 @@ module.exports.toggleReservationStatus = async (req, res) => {
 
 
 module.exports.showInvoice = async (req, res) => {
-  const reservation = await Reservation.findById(req.params.id); // Must use `req.params.id`
-  res.render('invoice', { reservation });
+    const reservation = await Reservation.findById(req.params.id); // Must use `req.params.id`
+    res.render('invoice', { reservation });
 };
